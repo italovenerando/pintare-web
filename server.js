@@ -249,12 +249,12 @@ app.get('/api/admin/check', verificarToken, (req, res) => {
 
 // 1. CRIAR um novo produto
 app.post('/api/admin/produtos', [verificarToken, verificarAdmin], (req, res) => {
-    const { nome, descricao_curta, descricao_longa, preco, imagem_url, categoria, tags } = req.body;
+    const { nome, descricao_curta, descricao_longa, imagem_url, categoria, tags } = req.body;
 
-    const sql = `INSERT INTO produtos (nome, descricao_curta, descricao_longa, preco, imagem_url, categoria, tags, destaque) 
-                 VALUES (?, ?, ?, ?, ?, ?, ?, 0)`; // Novos produtos não são destaque por padrão
+    const sql = `INSERT INTO produtos (nome, descricao_curta, descricao_longa, imagem_url, categoria, tags, destaque) 
+                 VALUES (?, ?, ?, ?, ?, ?, 0)`; // Novos produtos não são destaque por padrão
 
-    db.run(sql, [nome, descricao_curta, descricao_longa, preco, imagem_url, categoria, tags], function(err) {
+    db.run(sql, [nome, descricao_curta, descricao_longa, imagem_url, categoria, tags], function(err) {
         if (err) {
             return res.status(500).json({ message: 'Erro ao criar produto', error: err.message });
         }
@@ -265,20 +265,19 @@ app.post('/api/admin/produtos', [verificarToken, verificarAdmin], (req, res) => 
 // 2. ATUALIZAR um produto
 app.put('/api/admin/produtos/:id', [verificarToken, verificarAdmin], (req, res) => {
     const { id } = req.params;
-    const { nome, descricao_curta, descricao_longa, preco, imagem_url, categoria, tags, destaque } = req.body;
+    const { nome, descricao_curta, descricao_longa, imagem_url, categoria, tags, destaque } = req.body;
 
     const sql = `UPDATE produtos SET 
                     nome = ?, 
                     descricao_curta = ?, 
                     descricao_longa = ?, 
-                    preco = ?, 
                     imagem_url = ?, 
                     categoria = ?, 
                     tags = ?, 
                     destaque = ? 
                  WHERE id = ?`;
 
-    db.run(sql, [nome, descricao_curta, descricao_longa, preco, imagem_url, categoria, tags, !!destaque, id], function(err) {
+    db.run(sql, [nome, descricao_curta, descricao_longa, imagem_url, categoria, tags, !!destaque, id], function(err) {
         if (err) {
             return res.status(500).json({ message: 'Erro ao atualizar produto', error: err.message });
         }

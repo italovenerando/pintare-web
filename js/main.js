@@ -28,7 +28,7 @@ function criarCardProduto(produto) {
                             ${produto.nome}
                         </h3>
                         <p class="text-sm text-neutral-500 dark:text-neutral-400 truncate mb-2">${produto.descricao_curta || ''}</p>
-                        <p class="text-xl font-bold text-primary">${precoFormatado}</p>
+                        <p class="text-xl font-bold text-primary">Ver mais</p>
                     </div>
                 </div>
             </a>

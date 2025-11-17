@@ -31,7 +31,6 @@ async function seed() {
         {
             nome: 'Airless Spray Gun',
             descricao_curta: 'Pistola de alta pressão para acabamentos profissionais.',
-            preco: 1200.00,
             imagem_url: 'src/img/SLG-140-P.png',
             categoria: 'pistola',
             tags: 'mais_vendido,airless',
@@ -40,7 +39,6 @@ async function seed() {
         {
             nome: 'Pressure Pot 10L',
             descricao_curta: 'Tanque de pressão de 10 litros para pintura contínua.',
-            preco: 850.00,
             imagem_url: 'src/img/JGa-504.png',
             categoria: 'tanque',
             tags: 'mais_vendido',
@@ -49,7 +47,6 @@ async function seed() {
         {
             nome: 'Electrostatic Paint Gun',
             descricao_curta: 'Pistola eletrostática para máxima eficiência de transferência.',
-            preco: 3500.00,
             imagem_url: 'src/img/ADV-P522.png',
             categoria: 'pistola',
             tags: 'mais_vendido,eletrostatica',
@@ -58,7 +55,6 @@ async function seed() {
         {
             nome: 'Paint Mixer',
             descricao_curta: 'Misturador pneumático para tintas e vernizes.',
-            preco: 450.00,
             imagem_url: 'src/img/TPR-10.png',
             categoria: 'acessorio',
             tags: 'mais_vendido',
@@ -69,7 +65,6 @@ async function seed() {
         {
             nome: 'Pistola Alta Produtividade HP-3',
             descricao_curta: 'Ideal para grandes volumes com acabamento superior.',
-            preco: 1480.00,
             imagem_url: 'src/img/HP-3.png',
             categoria: 'pistola',
             tags: 'alta_produtividade,lancamento',
@@ -78,7 +73,6 @@ async function seed() {
         {
             nome: 'Airless HP Plus',
             descricao_curta: 'Versão aprimorada para trabalhos pesados.',
-            preco: 2350.00,
             imagem_url: 'src/img/HP-Plus.png',
             categoria: 'pistola',
             tags: 'alta_produtividade,airless',
@@ -89,7 +83,6 @@ async function seed() {
         {
             nome: 'Pistola HVLP 200',
             descricao_curta: 'Economia de tinta e menor névoa.',
-            preco: 920.00,
             imagem_url: 'src/img/HVLP-200.png',
             categoria: 'pistola',
             tags: 'hvlp,lancamento',
@@ -99,8 +92,8 @@ async function seed() {
 
     // Loop para inserir os produtos
     produtos.forEach(prod => {
-        db.run(`INSERT INTO produtos (nome, descricao_curta, preco, imagem_url, categoria, tags, destaque) 
-                VALUES (?, ?, ?, ?, ?, ?, ?)`, [prod.nome, prod.descricao_curta, prod.preco, prod.imagem_url, prod.categoria, prod.tags, prod.destaque],
+        db.run(`INSERT INTO produtos (nome, descricao_curta, imagem_url, categoria, tags, destaque) 
+                VALUES (?, ?, ?, ?, ?, ?)`, [prod.nome, prod.descricao_curta, prod.imagem_url, prod.categoria, prod.tags, prod.destaque],
             (err) => {
                 if (err) {
                     console.error(`Erro ao inserir ${prod.nome}:`, err.message);

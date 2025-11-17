@@ -38,7 +38,6 @@ db.serialize(() => {
         nome TEXT NOT NULL,
         descricao_curta TEXT,
         descricao_longa TEXT,
-        preco REAL,
         imagem_url TEXT,
         categoria TEXT, -- ex: 'pistola', 'tanque', 'acessorio'
         tags TEXT,       -- ex: 'mais_vendido,lancamento'

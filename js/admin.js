@@ -46,7 +46,7 @@ async function carregarProdutosAdmin() {
                 tr.classList.add('border-b', 'dark:border-neutral-700');
                 tr.innerHTML = `
                     <td class="p-4">${produto.nome}</td>
-                    <td class="p-4">${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(produto.preco)}</td>
+                    <td class="p-4">${produto.tags}</td>
                     <td class="p-4">${produto.categoria || 'N/A'}</td>
                     <td class="p-4 space-x-2">
                         <button onclick="editarProduto(${produto.id})" class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600">Editar</button>
@@ -124,7 +124,6 @@ async function editarProduto(id) {
             formTitulo.innerText = 'Editando Produto';
             inputProdutoId.value = produto.id;
             document.getElementById('produto-nome').value = produto.nome;
-            document.getElementById('produto-preco').value = produto.preco;
             document.getElementById('produto-descricao-curta').value = produto.descricao_curta || '';
             document.getElementById('produto-descricao-longa').value = produto.descricao_longa || '';
             document.getElementById('produto-imagem-url').value = produto.imagem_url || '';
