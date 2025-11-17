@@ -398,36 +398,7 @@
             </div>
         </footer>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const avatarButton = document.getElementById('avatar-button');
-            const avatarDropdownMenu = document.getElementById('avatar-dropdown-menu');
-            const notAuthenticatedOptions = document.getElementById('not-authenticated-options');
-            const authenticatedOptions = document.getElementById('authenticated-options');
-
-            // Simula o estado de autenticação (mude para true para testar como autenticado)
-            const isAuthenticated = true; // Mude para 'true' para testar o menu de autenticado
-
-            if (isAuthenticated) {
-                notAuthenticatedOptions.classList.add('hidden');
-                authenticatedOptions.classList.remove('hidden');
-            } else {
-                notAuthenticatedOptions.classList.remove('hidden');
-                authenticatedOptions.classList.add('hidden');
-            }
-
-            avatarButton.addEventListener('click', () => {
-                avatarDropdownMenu.classList.toggle('active'); // Alterna a classe 'active'
-            });
-
-            // Fechar o dropdown ao clicar fora
-            document.addEventListener('click', (event) => {
-                if (!avatarButton.contains(event.target) && !avatarDropdownMenu.contains(event.target)) {
-                    avatarDropdownMenu.classList.remove('active');
-                }
-            });
-        });
-    </script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
