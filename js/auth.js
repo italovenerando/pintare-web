@@ -1,7 +1,5 @@
 // js/auth.js
 
-const API_URL = 'http://localhost:3000/api';
-
 // --- Seletores do DOM ---
 const modal = document.getElementById('auth-modal');
 const tabLogin = document.getElementById('tab-login');
