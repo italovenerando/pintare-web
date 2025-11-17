@@ -8,7 +8,8 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script>
         tailwind.config = {
@@ -38,51 +39,77 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
         }
+
         /* Estilo extra para garantir que o sub-menu não desapareça se o mouse passar rápido */
-        
+
         .dropdown-content {
             display: none;
         }
-        
+
         .group:hover .dropdown-content {
             display: block;
         }
+
         /* Nested Dropdown logic */
-        
+
         .group\/nested:hover .dropdown-nested {
             display: block;
         }
+
         /* Para o menu do avatar, vamos usar JS para alternar 'hidden'/'block' */
-        
+
         .avatar-dropdown-menu {
             display: none;
         }
-        
+
         .avatar-dropdown-menu.active {
             display: block;
         }
+
+        header {
+        background-color: rgba(255, 255, 255, 0.8) !important; /* Branco com 80% de opacidade */
+    }
+
+    .dark header {
+        background-color: rgba(35, 24, 15, 0.8) !important; /* background-dark com 80% de opacidade */
+    }
+
+    header:hover {
+        background-color: rgba(255, 255, 255, 1) !important; /* Branco totalmente opaco no hover */
+    }
+
+    .dark header:hover {
+        background-color: rgba(35, 24, 15, 1) !important; /* background-dark totalmente opaco no hover */
+    }
+
+
+
     </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-neutral-800 dark:text-neutral-200">
     <div class="relative flex min-h-screen w-full flex-col">
-        <header class="sticky top-0 z-50 w-full bg-white dark:bg-background-dark/95 border-b border-neutral-200 dark:border-neutral-800 shadow-sm">
+        <header
+            class="sticky top-0 z-50 w-full bg-white dark:bg-[#23180f] border-b border-neutral-200 dark:border-neutral-800 shadow-sm backdrop-blur-sm transition-all duration-300">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex h-20 items-center justify-between gap-4">
 
                     <div class="flex items-center gap-8">
                         <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
                             <div class="text-primary size-8">
-                                <img src="https://cdn.sistemawbuy.com.br/arquivos/2c9361815cecd146294cb75587d9fe1d/config/pistolas-de-pintura,logo-sem-fundo-521.png" alt="logo-pintare">
+                                <img src="https://cdn.sistemawbuy.com.br/arquivos/2c9361815cecd146294cb75587d9fe1d/config/pistolas-de-pintura,logo-sem-fundo-521.png"
+                                    alt="logo-pintare">
                             </div>
-                            <h2 class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white hidden sm:block">
+                            <h2
+                                class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white hidden sm:block">
                                 Pintare</h2>
                         </a>
 
                         <nav class="hidden xl:flex items-center gap-6">
 
                             <div class="relative group h-20 flex items-center">
-                                <a href="product_catalog.html" class="flex items-center gap-1 text-sm font-medium text-neutral-600 transition-colors hover:text-primary dark:text-neutral-300 dark:hover:text-primary focus:outline-none">
+                                <a href="product_catalog.html"
+                                    class="flex items-center gap-1 text-sm font-medium text-neutral-600 transition-colors hover:text-primary dark:text-neutral-300 dark:hover:text-primary focus:outline-none">
                                     Produtos
                                     <span class="material-symbols-outlined text-[20px]">expand_more</span>
                                     </button>
@@ -94,269 +121,327 @@
                                             class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Pistolas
                                             de gravidade</a>
 
-                                <div class="group/nested relative">
-                                    <button class="w-full flex items-center justify-between px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">
+                                        <div class="group/nested relative">
+                                            <button
+                                                class="w-full flex items-center justify-between px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">
                                                 <span>Pistolas de pressão</span>
                                                 <span class="material-symbols-outlined text-[16px]">chevron_right</span>
                                             </button>
 
-                                    <div class="dropdown-nested hidden absolute left-full top-0 w-56 bg-white dark:bg-neutral-900 shadow-xl rounded-lg border border-neutral-100 dark:border-neutral-800 py-2 -ml-1">
-                                        <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Filtro
+                                            <div
+                                                class="dropdown-nested hidden absolute left-full top-0 w-56 bg-white dark:bg-neutral-900 shadow-xl rounded-lg border border-neutral-100 dark:border-neutral-800 py-2 -ml-1">
+                                                <a href="#"
+                                                    class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Filtro
                                                     de ar</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Mangueiras</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Peças
+                                                <a href="#"
+                                                    class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Mangueiras</a>
+                                                <a href="#"
+                                                    class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Peças
                                                     de JGA</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Peças
+                                                <a href="#"
+                                                    class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Peças
                                                     de SGK/FLG</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Canecas</a>
-                                    </div>
-                                </div>
-                                <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Pistolas
+                                                <a href="#"
+                                                    class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Canecas</a>
+                                            </div>
+                                        </div>
+                                        <a href="#"
+                                            class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Pistolas
                                             de sucção</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Pistolas
+                                        <a href="#"
+                                            class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Pistolas
                                             automáticas</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Tanques</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Bombas</a>
-                                <div class="border-t border-neutral-100 dark:border-neutral-800 my-1"></div>
-                                <a href="#" class="flex items-center justify-between px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">
+                                        <a href="#"
+                                            class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Tanques</a>
+                                        <a href="#"
+                                            class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Bombas</a>
+                                        <div class="border-t border-neutral-100 dark:border-neutral-800 my-1"></div>
+                                        <a href="#"
+                                            class="flex items-center justify-between px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">
                                             Filtros <span
                                                 class="material-symbols-outlined text-[16px]">chevron_right</span>
                                         </a>
+                                    </div>
                             </div>
+
+                            <a class="text-sm font-medium text-neutral-600 transition-colors hover:text-primary dark:text-neutral-300 dark:hover:text-primary"
+                                href="about.html">Sobre Nós</a>
+                            <a class="text-sm font-medium text-neutral-600 transition-colors hover:text-primary dark:text-neutral-300 dark:hover:text-primary"
+                                href="contact.html">Contato</a>
+                        </nav>
                     </div>
 
-                    <a class="text-sm font-medium text-neutral-600 transition-colors hover:text-primary dark:text-neutral-300 dark:hover:text-primary" href="about.html">Sobre Nós</a>
-                    <a class="text-sm font-medium text-neutral-600 transition-colors hover:text-primary dark:text-neutral-300 dark:hover:text-primary" href="contact.html">Contato</a>
-                    </nav>
-                </div>
-
-                <div class="hidden lg:flex flex-1 max-w-md mx-4">
-                    <div class="relative w-full group">
-                        <input type="text" placeholder="Pesquisar produtos..." class="w-full h-10 pl-4 pr-12 text-sm bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-neutral-400">
-                        <button class="absolute right-0 top-0 h-10 w-10 flex items-center justify-center bg-primary hover:bg-primary-dark text-white rounded-r-lg transition-colors">
+                    <div class="hidden lg:flex flex-1 max-w-md mx-4">
+                        <div class="relative w-full group">
+                            <input type="text" placeholder="Pesquisar produtos..."
+                                class="w-full h-10 pl-4 pr-12 text-sm bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-neutral-400">
+                            <button
+                                class="absolute right-0 top-0 h-10 w-10 flex items-center justify-center bg-primary hover:bg-primary-dark text-white rounded-r-lg transition-colors">
                                 <span class="material-symbols-outlined text-[20px]">search</span>
                             </button>
+                        </div>
                     </div>
-                </div>
 
-                <div class="flex items-center gap-4 sm:gap-6">
+                    <div class="flex items-center gap-4 sm:gap-6">
 
-                    <a href="cart.html" class="relative group text-neutral-600 hover:text-primary dark:text-neutral-300 dark:hover:text-primary transition-colors">
-                        <span class="material-symbols-outlined text-2xl">shopping_cart</span>
-                        <span class="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white border-2 border-white dark:border-background-dark">0</span>
-                    </a>
+                        <a href="cart.html"
+                            class="relative group text-neutral-600 hover:text-primary dark:text-neutral-300 dark:hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-2xl">shopping_cart</span>
+                            <span
+                                class="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white border-2 border-white dark:border-background-dark">0</span>
+                        </a>
 
-                    <div class="relative">
-                        <button onclick="openModal('login')" id="avatar-button" class="flex items-center justify-center size-10 rounded-full bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
+                        <div class="relative">
+                            <button onclick="openModal('login')" id="avatar-button"
+                                class="flex items-center justify-center size-10 rounded-full bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
                                 <span class="material-symbols-outlined text-2xl">person</span>
                             </button>
 
-                        <div id="avatar-dropdown-menu" class="avatar-dropdown-menu absolute right-0 mt-3 w-48 bg-white dark:bg-neutral-900 shadow-xl rounded-lg border border-neutral-100 dark:border-neutral-800 py-2 z-50">
-                            <div id="not-authenticated-options">
-                                <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Login</a>
-                                <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Cadastro</a>
-                            </div>
+                            <div id="avatar-dropdown-menu"
+                                class="avatar-dropdown-menu absolute right-0 mt-3 w-48 bg-white dark:bg-neutral-900 shadow-xl rounded-lg border border-neutral-100 dark:border-neutral-800 py-2 z-50">
+                                <div id="not-authenticated-options">
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Login</a>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Cadastro</a>
+                                </div>
 
-                            <div id="authenticated-options" class="hidden">
-                                <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Minha
+                                <div id="authenticated-options" class="hidden">
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Minha
                                         Conta</a>
-                                <div class="border-t border-neutral-100 dark:border-neutral-800 my-1"></div>
-                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-neutral-800">Sair</a>
+                                    <div class="border-t border-neutral-100 dark:border-neutral-800 my-1"></div>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-neutral-800">Sair</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <button class="hidden md:inline-flex h-10 items-center justify-center rounded-lg bg-primary px-5 text-sm font-bold text-white shadow-sm transition-all hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
+                        <button
+                            class="hidden md:inline-flex h-10 items-center justify-center rounded-lg bg-primary px-5 text-sm font-bold text-white shadow-sm transition-all hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
                             Solicitar um orçamento
                         </button>
 
-                    <button class="xl:hidden p-2 text-neutral-700 dark:text-neutral-300">
+                        <button class="xl:hidden p-2 text-neutral-700 dark:text-neutral-300">
                             <span class="material-symbols-outlined">menu</span>
                         </button>
+                    </div>
                 </div>
             </div>
-    </div>
-    </header>
+        </header>
 
-    <main class="flex-1">
-        <section class="relative h-[640px] w-full">
-            <div class="absolute inset-0 bg-cover bg-center" style='background-image: url("https://cdn.sistemawbuy.com.br/arquivos/2c9361815cecd146294cb75587d9fe1d/slide/pistolas-de-pintura,design-sem-nome-4-452.png");'>
-            </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
-            <div class="relative z-10 flex h-full items-center justify-center text-center">
-                <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-                    <div class="flex flex-col items-center gap-6">
-                        <h1 class="text-4xl font-extrabold tracking-tighter text-white sm:text-5xl md:text-6xl">
-                            Seu parceiro em solução de pintura industrial
-                        </h1>
-                        <p class="max-w-2xl text-lg text-neutral-200">
-                            Pintare Equipamentos Para Pintura LTDA oferece equipamentosindustriais de alta qualidade, preços competitivos, atendimento excepcional e entrega para todo o país. Explore nosso catálogo e solicite um orçamento hoje mesmo.
-                        </p>
-                        <div class="flex flex-wrap justify-center gap-4">
-                            <a class="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-8 text-base font-semibold text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50" href="product_catalog.html">
+        <main class="flex-1">
+            <section class="relative h-[640px] w-full">
+                <div class="absolute inset-0 bg-cover bg-center"
+                    style='background-image: url("./src/img/Gemini_Generated_Image_gz3fafgz3fafgz3f.png");'>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10"></div>
+                <div class="relative z-10 flex h-full items-center justify-center text-center">
+                    <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                        <div class="flex flex-col items-center gap-6">
+                            <h1 class="text-4xl font-extrabold tracking-tighter text-white sm:text-5xl md:text-6xl">
+                                Seu parceiro em solução de pintura industrial
+                            </h1>
+                            <p class="max-w-2xl text-lg text-neutral-200">
+                                Pintare Equipamentos Para Pintura LTDA oferece equipamentosindustriais de alta
+                                qualidade, preços competitivos, atendimento excepcional e entrega para todo o país.
+                                Explore nosso catálogo e solicite um orçamento hoje mesmo.
+                            </p>
+                            <div class="flex flex-wrap justify-center gap-4">
+                                <a class="inline-flex h-12 items-center justify-center rounded-lg bg-primary px-8 text-base font-semibold text-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                                    href="product_catalog.html">
                                     Ver produtos
                                 </a>
-                            <a class="inline-flex h-12 items-center justify-center rounded-lg bg-background-light/90 px-8 text-base font-semibold text-neutral-800 shadow-lg transition-transform hover:scale-105 dark:bg-background-dark/90 dark:text-neutral-200" href="contact.html">
+                                <a class="inline-flex h-12 items-center justify-center rounded-lg bg-background-light/90 px-8 text-base font-semibold text-neutral-800 shadow-lg transition-transform hover:scale-105 dark:bg-background-dark/90 dark:text-neutral-200"
+                                    href="contact.html">
                                     Nosso Contato
                                 </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
-                        Produtos Mais Vendidos
-                    </h2>
-                    <a class="text-sm font-medium text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80" href="#">Ver Tudo</a>
-                </div>
-                <div class="relative">
-                    <div class="flex items-center justify-center">
-                        <div class="overflow-hidden w-full">
-                            <div id="container-mais-vendidos" class="flex -mx-4 overflow-x-auto pb-4 scroll-smooth snap-x">
                             </div>
                         </div>
                     </div>
-                    <button class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 ml-2">
-                            <span
-                                class="material-symbols-outlined text-neutral-800 dark:text-neutral-200">chevron_left</span>
-                        </button>
-                    <button class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 mr-2">
-                            <span
-                                class="material-symbols-outlined text-neutral-800 dark:text-neutral-200">chevron_right</span>
-                        </button>
                 </div>
-            </div>
-        </section>
-        <section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
-                        Alta Produtividade
-                    </h2>
-                    <a class="text-sm font-medium text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80" href="#">Ver Tudo</a>
-                </div>
-
-                <div class="relative">
-                    <div class="flex items-center justify-center">
-                        <div class="overflow-hidden w-full">
-                            <div id="container-alta-produtividade" class="flex -mx-4 overflow-x-auto pb-4 scroll-smooth snap-x">
+            </section>
+            <section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
+                            Produtos Mais Vendidos
+                        </h2>
+                        <a class="text-sm font-medium text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80"
+                            href="#">Ver Tudo</a>
+                    </div>
+                    <div class="relative">
+                        <div class="flex items-center justify-center">
+                            <div class="overflow-hidden w-full">
+                                <div id="container-mais-vendidos"
+                                    class="flex -mx-4 overflow-x-auto pb-4 scroll-smooth snap-x">
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <button class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 ml-2">
+                        <button
+                            class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 ml-2">
                             <span
                                 class="material-symbols-outlined text-neutral-800 dark:text-neutral-200">chevron_left</span>
                         </button>
-                    <button class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 mr-2">
+                        <button
+                            class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 mr-2">
                             <span
                                 class="material-symbols-outlined text-neutral-800 dark:text-neutral-200">chevron_right</span>
                         </button>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+            <section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
+                            Alta Produtividade
+                        </h2>
+                        <a class="text-sm font-medium text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80"
+                            href="#">Ver Tudo</a>
+                    </div>
 
-        <section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
-                        Alto Volume e Pouca Pressão
-                    </h2>
-                    <a class="text-sm font-medium text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80" href="#">Ver Tudo</a>
-                </div>
-
-                <div class="relative">
-                    <div class="flex items-center justify-center">
-                        <div class="overflow-hidden w-full">
-                            <div id="container-hvlp" class="flex -mx-4 overflow-x-auto pb-4 scroll-smooth snap-x">
+                    <div class="relative">
+                        <div class="flex items-center justify-center">
+                            <div class="overflow-hidden w-full">
+                                <div id="container-alta-produtividade"
+                                    class="flex -mx-4 overflow-x-auto pb-4 scroll-smooth snap-x">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <button class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 ml-2">
+                        <button
+                            class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 ml-2">
                             <span
                                 class="material-symbols-outlined text-neutral-800 dark:text-neutral-200">chevron_left</span>
                         </button>
-                    <button class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 mr-2">
+                        <button
+                            class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 mr-2">
                             <span
                                 class="material-symbols-outlined text-neutral-800 dark:text-neutral-200">chevron_right</span>
                         </button>
-                </div>
-            </div>
-        </section>
-        <section class="py-16 sm:py-24">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="max-w-3xl mx-auto text-center mb-12">
-                    <h2 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
-                        Porque Escolher a Pintare?
-                    </h2>
-                    <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
-                        Nosso compromisso é fornecer as melhores soluções para suas necessidades de pintura industrial.
-                    </p>
-                </div>
-                <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
-                    <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-background-light p-6 transition-all hover:shadow-lg dark:bg-background-dark">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                            <span class="material-symbols-outlined text-3xl">local_shipping</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Entrega em Todo o Brasil
-                        </h3>
-                        <p class="text-neutral-600 dark:text-neutral-400">"Entrega rápida e confiável em todo o território nacional.</p>
                     </div>
-                    <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-background-light p-6 transition-all hover:shadow-lg dark:bg-background-dark">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                            <span class="material-symbols-outlined text-3xl">construction</span>
+                </div>
+            </section>
+
+            <section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between mb-8">
+                        <h2 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
+                            Alto Volume e Pouca Pressão
+                        </h2>
+                        <a class="text-sm font-medium text-primary hover:text-primary/80 dark:text-primary dark:hover:text-primary/80"
+                            href="#">Ver Tudo</a>
+                    </div>
+
+                    <div class="relative">
+                        <div class="flex items-center justify-center">
+                            <div class="overflow-hidden w-full">
+                                <div id="container-hvlp" class="flex -mx-4 overflow-x-auto pb-4 scroll-smooth snap-x">
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Atendimento Especializado
-                        </h3>
-                        <p class="text-neutral-600 dark:text-neutral-400">Nossa equipe de especialistas oferece suporte e atendimento excepcionais.
+
+                        <button
+                            class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 ml-2">
+                            <span
+                                class="material-symbols-outlined text-neutral-800 dark:text-neutral-200">chevron_left</span>
+                        </button>
+                        <button
+                            class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-neutral-900/80 rounded-full p-2 shadow-md hover:bg-white dark:hover:bg-neutral-900 mr-2">
+                            <span
+                                class="material-symbols-outlined text-neutral-800 dark:text-neutral-200">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section class="py-16 sm:py-24">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl mx-auto text-center mb-12">
+                        <h2 class="text-3xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-4xl">
+                            Porque Escolher a Pintare?
+                        </h2>
+                        <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-400">
+                            Nosso compromisso é fornecer as melhores soluções para suas necessidades de pintura
+                            industrial.
                         </p>
                     </div>
-                    <div class="flex flex-col gap-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-background-light p-6 transition-all hover:shadow-lg dark:bg-background-dark">
-                        <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                            <span class="material-symbols-outlined text-3xl">payments</span>
+                    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+                        <div
+                            class="flex flex-col gap-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-background-light p-6 transition-all hover:shadow-lg dark:bg-background-dark">
+                            <div
+                                class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                <span class="material-symbols-outlined text-3xl">local_shipping</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Entrega em Todo o Brasil
+                            </h3>
+                            <p class="text-neutral-600 dark:text-neutral-400">"Entrega rápida e confiável em todo o
+                                território nacional.</p>
                         </div>
-                        <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Preços Competitivos</h3>
-                        <p class="text-neutral-600 dark:text-neutral-400">Obtenha o melhor custo-benefício para seu investimento com nossos preços.</p>
+                        <div
+                            class="flex flex-col gap-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-background-light p-6 transition-all hover:shadow-lg dark:bg-background-dark">
+                            <div
+                                class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                <span class="material-symbols-outlined text-3xl">construction</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Atendimento Especializado
+                            </h3>
+                            <p class="text-neutral-600 dark:text-neutral-400">Nossa equipe de especialistas oferece
+                                suporte e atendimento excepcionais.
+                            </p>
+                        </div>
+                        <div
+                            class="flex flex-col gap-4 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-background-light p-6 transition-all hover:shadow-lg dark:bg-background-dark">
+                            <div
+                                class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                <span class="material-symbols-outlined text-3xl">payments</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">Preços Competitivos</h3>
+                            <p class="text-neutral-600 dark:text-neutral-400">Obtenha o melhor custo-benefício para seu
+                                investimento com nossos preços.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
-    <footer class="bg-background-light dark:bg-background-dark border-t border-neutral-200 dark:border-neutral-800">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="flex flex-col items-center justify-center gap-8 md:flex-row md:justify-between">
-                <div class="flex flex-wrap justify-center gap-x-6 gap-y-4 md:order-2">
-                    <a class="text-sm text-neutral-600 transition-colors hover:text-primary dark:text-neutral-400 dark:hover:text-primary" href="#">Privacy Policy</a>
-                    <a class="text-sm text-neutral-600 transition-colors hover:text-primary dark:text-neutral-400 dark:hover:text-primary" href="#">Terms of Service</a>
+            </section>
+        </main>
+        <footer class="bg-background-light dark:bg-background-dark border-t border-neutral-200 dark:border-neutral-800">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="flex flex-col items-center justify-center gap-8 md:flex-row md:justify-between">
+                    <div class="flex flex-wrap justify-center gap-x-6 gap-y-4 md:order-2">
+                        <a class="text-sm text-neutral-600 transition-colors hover:text-primary dark:text-neutral-400 dark:hover:text-primary"
+                            href="#">Privacy Policy</a>
+                        <a class="text-sm text-neutral-600 transition-colors hover:text-primary dark:text-neutral-400 dark:hover:text-primary"
+                            href="#">Terms of Service</a>
+                    </div>
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 md:order-1">
+                        © 2025 Pintare Equipamentos Para Pintura LTDA. All rights reserved.
+                    </p>
                 </div>
-                <p class="text-sm text-neutral-500 dark:text-neutral-400 md:order-1">
-                    © 2025 Pintare Equipamentos Para Pintura LTDA. All rights reserved.
-                </p>
             </div>
-        </div>
-    </footer>
+        </footer>
     </div>
     <script src="js/main.js"></script>
-    <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
+    <div id="auth-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
         <div id="modal-overlay" onclick="closeModal()" class="absolute inset-0"></div>
 
-        <div class="relative w-full max-w-2xl p-6 mx-4 bg-background-light dark:bg-card-dark rounded-xl shadow-lg border border-border-light dark:border-border-dark">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary">
-            <span class="material-symbols-outlined">close</span>
-        </button>
+        <div
+            class="relative w-full max-w-2xl p-6 mx-4 bg-background-light dark:bg-card-dark rounded-xl shadow-lg border border-border-light dark:border-border-dark">
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary">
+                <span class="material-symbols-outlined">close</span>
+            </button>
 
             <div class="mb-6 border-b border-border-light dark:border-border-dark">
                 <nav class="flex space-x-4" aria-label="Tabs">
-                    <button id="tab-login" onclick="showTab('login')" class="tab-btn px-4 py-3 font-semibold text-lg border-b-2 border-primary text-primary">
-                    Login
-                </button>
-                    <button id="tab-register" onclick="showTab('register')" class="tab-btn px-4 py-3 font-semibold text-lg border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                    Cadastre-se
-                </button>
+                    <button id="tab-login" onclick="showTab('login')"
+                        class="tab-btn px-4 py-3 font-semibold text-lg border-b-2 border-primary text-primary">
+                        Login
+                    </button>
+                    <button id="tab-register" onclick="showTab('register')"
+                        class="tab-btn px-4 py-3 font-semibold text-lg border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                        Cadastre-se
+                    </button>
                 </nav>
             </div>
 
@@ -365,17 +450,22 @@
             <div id="form-login-container">
                 <form id="form-login" class="space-y-4">
                     <div>
-                        <label for="login-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-                        <input type="email" id="login-email" name="email" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
+                        <label for="login-email"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                        <input type="email" id="login-email" name="email" required
+                            class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
                     </div>
                     <div>
-                        <label for="login-senha" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha</label>
-                        <input type="password" id="login-senha" name="senha" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
+                        <label for="login-senha"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha</label>
+                        <input type="password" id="login-senha" name="senha" required
+                            class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
                         <a href="#" class="text-sm text-primary hover:underline mt-1 block">Esqueceu sua senha?</a>
                     </div>
-                    <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90">
-                    Entrar
-                </button>
+                    <button type="submit"
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90">
+                        Entrar
+                    </button>
                 </form>
             </div>
 
@@ -383,38 +473,53 @@
                 <form id="form-register" class="space-y-4">
 
                     <div>
-                        <label for="tipo-conta" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo de Conta</label>
-                        <select id="tipo-conta" name="tipo" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
-                        <option value="PF">Pessoa Física</option>
-                        <option value="PJ">Pessoa Jurídica</option>
-                    </select>
+                        <label for="tipo-conta"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo de
+                            Conta</label>
+                        <select id="tipo-conta" name="tipo" required
+                            class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
+                            <option value="PF">Pessoa Física</option>
+                            <option value="PJ">Pessoa Jurídica</option>
+                        </select>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="reg-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email *</label>
-                            <input type="email" id="reg-email" name="email" required class="form-input w-full rounded ...">
+                            <label for="reg-email"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email *</label>
+                            <input type="email" id="reg-email" name="email" required
+                                class="form-input w-full rounded ...">
                         </div>
                         <div>
-                            <label for="reg-senha" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha *</label>
-                            <input type="password" id="reg-senha" name="senha" required class="form-input w-full rounded ...">
+                            <label for="reg-senha"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha *</label>
+                            <input type="password" id="reg-senha" name="senha" required
+                                class="form-input w-full rounded ...">
                         </div>
                         <div>
-                            <label for="reg-celular" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Celular *</label>
-                            <input type="tel" id="reg-celular" name="celular" required class="form-input w-full rounded ...">
+                            <label for="reg-celular"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Celular
+                                *</label>
+                            <input type="tel" id="reg-celular" name="celular" required
+                                class="form-input w-full rounded ...">
                         </div>
                         <div>
-                            <label for="reg-telefone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Telefone</label>
+                            <label for="reg-telefone"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Telefone</label>
                             <input type="tel" id="reg-telefone" name="telefone" class="form-input w-full rounded ...">
                         </div>
                     </div>
 
                     <div id="campos-pf" class="space-y-4">
-                        <div class="text-sm font-semibold text-gray-600 dark:text-gray-300 pt-2 border-t dark:border-gray-700">Dados Pessoais</div>
+                        <div
+                            class="text-sm font-semibold text-gray-600 dark:text-gray-300 pt-2 border-t dark:border-gray-700">
+                            Dados Pessoais</div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="reg-nome_completo-pf" class="block text-sm font-medium ...">Nome Completo *</label>
-                                <input type="text" id="reg-nome_completo-pf" name="nome_completo" class="form-input w-full rounded ...">
+                                <label for="reg-nome_completo-pf" class="block text-sm font-medium ...">Nome Completo
+                                    *</label>
+                                <input type="text" id="reg-nome_completo-pf" name="nome_completo"
+                                    class="form-input w-full rounded ...">
                             </div>
                             <div>
                                 <label for="reg-cpf-pf" class="block text-sm font-medium ...">CPF *</label>
@@ -426,51 +531,68 @@
                             </div>
                             <div>
                                 <label for="reg-nascimento-pf" class="block text-sm font-medium ...">Nascimento</label>
-                                <input type="date" id="reg-nascimento-pf" name="nascimento" class="form-input w-full rounded ...">
+                                <input type="date" id="reg-nascimento-pf" name="nascimento"
+                                    class="form-input w-full rounded ...">
                             </div>
                         </div>
                     </div>
 
                     <div id="campos-pj" class="space-y-4 hidden">
-                        <div class="text-sm font-semibold text-gray-600 dark:text-gray-300 pt-2 border-t dark:border-gray-700">Dados da Empresa</div>
+                        <div
+                            class="text-sm font-semibold text-gray-600 dark:text-gray-300 pt-2 border-t dark:border-gray-700">
+                            Dados da Empresa</div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="reg-razao_social" class="block text-sm font-medium ...">Razão Social *</label>
-                                <input type="text" id="reg-razao_social" name="razao_social" class="form-input w-full rounded ...">
+                                <label for="reg-razao_social" class="block text-sm font-medium ...">Razão Social
+                                    *</label>
+                                <input type="text" id="reg-razao_social" name="razao_social"
+                                    class="form-input w-full rounded ...">
                             </div>
                             <div>
-                                <label for="reg-nome_fantasia" class="block text-sm font-medium ...">Nome Fantasia</label>
-                                <input type="text" id="reg-nome_fantasia" name="nome_fantasia" class="form-input w-full rounded ...">
+                                <label for="reg-nome_fantasia" class="block text-sm font-medium ...">Nome
+                                    Fantasia</label>
+                                <input type="text" id="reg-nome_fantasia" name="nome_fantasia"
+                                    class="form-input w-full rounded ...">
                             </div>
                             <div>
                                 <label for="reg-cnpj" class="block text-sm font-medium ...">CNPJ *</label>
                                 <input type="text" id="reg-cnpj" name="cnpj" class="form-input w-full rounded ...">
                             </div>
                             <div>
-                                <label for="reg-inscricao_estadual" class="block text-sm font-medium ...">Insc. Estadual</label>
-                                <input type="text" id="reg-inscricao_estadual" name="inscricao_estadual" class="form-input w-full rounded ...">
+                                <label for="reg-inscricao_estadual" class="block text-sm font-medium ...">Insc.
+                                    Estadual</label>
+                                <input type="text" id="reg-inscricao_estadual" name="inscricao_estadual"
+                                    class="form-input w-full rounded ...">
                             </div>
                         </div>
-                        <div class="text-sm font-semibold text-gray-600 dark:text-gray-300 pt-2 border-t dark:border-gray-700">Dados do Responsável</div>
+                        <div
+                            class="text-sm font-semibold text-gray-600 dark:text-gray-300 pt-2 border-t dark:border-gray-700">
+                            Dados do Responsável</div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label for="reg-nome_completo-pj" class="block text-sm font-medium ...">Nome do Responsável *</label>
-                                <input type="text" id="reg-nome_completo-pj" name="nome_completo" class="form-input w-full rounded ...">
+                                <label for="reg-nome_completo-pj" class="block text-sm font-medium ...">Nome do
+                                    Responsável *</label>
+                                <input type="text" id="reg-nome_completo-pj" name="nome_completo"
+                                    class="form-input w-full rounded ...">
                             </div>
                             <div>
-                                <label for="reg-cpf-pj" class="block text-sm font-medium ...">CPF do Responsável *</label>
+                                <label for="reg-cpf-pj" class="block text-sm font-medium ...">CPF do Responsável
+                                    *</label>
                                 <input type="text" id="reg-cpf-pj" name="cpf" class="form-input w-full rounded ...">
                             </div>
                             <div>
-                                <label for="reg-nascimento-pj" class="block text-sm font-medium ...">Nascimento do Responsável</label>
-                                <input type="date" id="reg-nascimento-pj" name="nascimento" class="form-input w-full rounded ...">
+                                <label for="reg-nascimento-pj" class="block text-sm font-medium ...">Nascimento do
+                                    Responsável</label>
+                                <input type="date" id="reg-nascimento-pj" name="nascimento"
+                                    class="form-input w-full rounded ...">
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90">
-                    Criar Conta
-                </button>
+                    <button type="submit"
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90">
+                        Criar Conta
+                    </button>
                 </form>
             </div>
         </div>
