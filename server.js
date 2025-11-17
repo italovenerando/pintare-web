@@ -1,4 +1,6 @@
-require('dotenv').config(); // Carrega variáveis de ambiente (vamos criar o arquivo .env jajá)
+require('dotenv').config();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const cors = require('cors');
 const db = require('./db'); // Importa nossa conexão com o banco
@@ -73,6 +75,164 @@ app.get('/api/produtos/:id', (req, res) => {
         }
         res.json({ produto: row });
     });
+});
+
+// 1. REGISTRO DE NOVO USUÁRIO (PF ou PJ)
+app.post('/api/auth/registrar', async(req, res) => {
+    const { tipo, email, senha, ...dados } = req.body; // Pega 'tipo', 'email', 'senha' e o resto dos dados
+
+    if (!email || !senha || !tipo) {
+        return res.status(400).json({ message: 'Email, senha e tipo são obrigatórios.' });
+    }
+
+    try {
+        // Criptografa a senha (NUNCA salve senhas em texto puro)
+        const senhaHash = await bcrypt.hash(senha, 10); // 10 é o "custo" do hash
+
+        // Monta a query de inserção com base no tipo
+        // Isso é complexo, mas cobre os campos que você pediu
+        let campos, valores, params;
+
+        if (tipo === 'PF') {
+            campos = '(tipo, email, senha_hash, nome_completo, cpf, celular, telefone, data_nascimento)';
+            valores = '(?, ?, ?, ?, ?, ?, ?, ?)';
+            params = [
+                tipo, email, senhaHash,
+                dados.nome_completo, dados.cpf, dados.rg,
+                dados.celular, dados.telefone, dados.nascimento
+            ];
+        } else if (tipo === 'PJ') {
+            campos = '(tipo, email, senha_hash, nome_completo, cpf, razao_social, nome_fantasia, cnpj, inscricao_estadual, celular, telefone, data_nascimento)';
+            valores = '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            params = [
+                tipo, email, senhaHash,
+                dados.nome_completo, // Nome do Responsável
+                dados.cpf, // CPF do Responsável
+                dados.razao_social,
+                dados.nome_fantasia,
+                dados.cnpj,
+                dados.inscricao_estadual,
+                dados.celular,
+                dados.telefone,
+                dados.nascimento // Nascimento do Responsável
+            ];
+        } else {
+            return res.status(400).json({ message: 'Tipo de usuário inválido (deve ser PF ou PJ).' });
+        }
+
+        const sql = `INSERT INTO usuarios ${campos} VALUES ${valores}`;
+
+        db.run(sql, params, function(err) {
+            if (err) {
+                if (err.message.includes('UNIQUE constraint failed: usuarios.email')) {
+                    return res.status(409).json({ message: 'Este email já está cadastrado.' });
+                }
+                return res.status(500).json({ message: 'Erro ao registrar usuário.', error: err.message });
+            }
+            res.status(201).json({ message: 'Usuário registrado com sucesso!', id: this.lastID });
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: 'Erro interno do servidor.', error: error.message });
+    }
+});
+
+
+// 2. LOGIN (PF, PJ ou Admin)
+app.post('/api/auth/login', (req, res) => {
+    const { email, senha } = req.body;
+
+    if (!email || !senha) {
+        return res.status(400).json({ message: 'Email e senha são obrigatórios.' });
+    }
+
+    const sql = 'SELECT * FROM usuarios WHERE email = ?';
+
+    db.get(sql, [email], async(err, usuario) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erro no servidor.', error: err.message });
+        }
+
+        // Usuário não encontrado
+        if (!usuario) {
+            return res.status(404).json({ message: 'Usuário não encontrado.' });
+        }
+
+        // Compara a senha enviada com a senha criptografada no banco
+        const senhaValida = await bcrypt.compare(senha, usuario.senha_hash);
+        if (!senhaValida) {
+            return res.status(401).json({ message: 'Credenciais inválidas.' });
+        }
+
+        // Se a senha estiver correta, GERAR O TOKEN (o "crachá")
+        const payload = {
+            id: usuario.id,
+            email: usuario.email,
+            nome: usuario.nome_completo || usuario.nome_fantasia,
+            isAdmin: !!usuario.isAdmin // Converte 0/1 para false/true
+        };
+
+        // Assina o token com nosso segredo e define a expiração (24h)
+        const token = jwt.sign(
+            payload,
+            process.env.JWT_SECRET, { expiresIn: '24h' } // Exatamente como você pediu!
+        );
+
+        // Envia o token e os dados básicos do usuário para o front-end
+        res.json({
+            message: 'Login bem-sucedido!',
+            token: token,
+            user: payload
+        });
+    });
+});
+
+// Esta função vai "parar" requisições que precisam de login
+// e verificar se o token (crachá) é válido.
+function verificarToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    // O token vem no formato "Bearer [token]"
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({ message: 'Acesso negado. Nenhum token fornecido.' });
+    }
+
+    // Verifica se o token é válido e se não expirou
+    jwt.verify(token, process.env.JWT_SECRET, (err, dadosDoToken) => {
+        if (err) {
+            if (err.name === 'TokenExpiredError') {
+                return res.status(401).json({ message: 'Sessão expirada. Faça login novamente.' });
+            }
+            return res.status(403).json({ message: 'Token inválido.' });
+        }
+
+        // Se o token for válido, salvamos os dados dele na requisição
+        // para as próximas rotas saberem quem é o usuário.
+        req.user = dadosDoToken;
+        next(); // Permite que a requisição continue
+    });
+}
+
+
+// --- ROTAS PROTEGIDAS (Exemplos) ---
+// Rotas que SÓ funcionam se o usuário estiver logado (enviar o token)
+
+// Rota de teste para verificar se o token funciona
+app.get('/api/perfil', verificarToken, (req, res) => {
+    // Graças ao middleware, 'req.user' agora contém os dados do token
+    res.json({
+        message: 'Você está vendo uma rota protegida!',
+        usuarioLogado: req.user
+    });
+});
+
+// Rota para checar se o usuário é ADMIN
+app.get('/api/admin/check', verificarToken, (req, res) => {
+    if (!req.user.isAdmin) {
+        return res.status(403).json({ message: 'Acesso negado. Somente administradores.' });
+    }
+    res.json({ message: 'Olá, Admin!', admin: req.user });
 });
 
 // Iniciar o servidor
