@@ -1,161 +1,179 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Pintare Product Page</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "primary": "#f97306",
-              "background-light": "#f8f7f5",
-              "background-dark": "#23180f",
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pintare Product Page</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f97306",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#23180f",
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
             },
-            fontFamily: {
-              "display": ["Work Sans"]
-            },
-            borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-          },
-        },
-      };
+        };
     </script>
-<style>
-      .form-input, .form-textarea {
-        --tw-ring-color: theme('colors.primary') !important;
-      }
+    <style>
+        .form-input,
+        .form-textarea {
+            --tw-ring-color: theme('colors.primary') !important;
+        }
     </style>
 </head>
+
 <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
-<div class="flex min-h-screen flex-col">
-<header class="sticky top-0 z-10 w-full border-b border-gray-200/50 dark:border-gray-700/50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-<div class="flex h-16 items-center justify-between">
-<div class="flex items-center gap-4">
-<svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+    <div class="flex min-h-screen flex-col">
+        <header class="sticky top-0 z-10 w-full border-b border-gray-200/50 dark:border-gray-700/50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex h-16 items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
 <path d="M13.8261 30.5736C16.7203 29.8826 20.2244 29.4783 24 29.4783C27.7756 29.4783 31.2797 29.8826 34.1739 30.5736C36.9144 31.2278 39.9967 32.7669 41.3563 33.8352L24.8486 7.36089C24.4571 6.73303 23.5429 6.73303 23.1514 7.36089L6.64374 33.8352C8.00331 32.7669 11.0856 31.2278 13.8261 30.5736Z" fill="currentColor"></path>
 <path clip-rule="evenodd" d="M39.998 35.764C39.9944 35.7463 39.9875 35.7155 39.9748 35.6706C39.9436 35.5601 39.8949 35.4259 39.8346 35.2825C39.8168 35.2403 39.7989 35.1993 39.7813 35.1602C38.5103 34.2887 35.9788 33.0607 33.7095 32.5189C30.9875 31.8691 27.6413 31.4783 24 31.4783C20.3587 31.4783 17.0125 31.8691 14.2905 32.5189C12.0012 33.0654 9.44505 34.3104 8.18538 35.1832C8.17384 35.2075 8.16216 35.233 8.15052 35.2592C8.09919 35.3751 8.05721 35.4886 8.02977 35.589C8.00356 35.6848 8.00039 35.7333 8.00004 35.7388C8.00004 35.739 8 35.7393 8.00004 35.7388C8.00004 35.7641 8.0104 36.0767 8.68485 36.6314C9.34546 37.1746 10.4222 37.7531 11.9291 38.2772C14.9242 39.319 19.1919 40 24 40C28.8081 40 33.0758 39.319 36.0709 38.2772C37.5778 37.7531 38.6545 37.1746 39.3151 36.6314C39.9006 36.1499 39.9857 35.8511 39.998 35.764ZM4.95178 32.7688L21.4543 6.30267C22.6288 4.4191 25.3712 4.41909 26.5457 6.30267L43.0534 32.777C43.0709 32.8052 43.0878 32.8338 43.104 32.8629L41.3563 33.8352C43.104 32.8629 43.1038 32.8626 43.104 32.8629L43.1051 32.865L43.1065 32.8675L43.1101 32.8739L43.1199 32.8918C43.1276 32.906 43.1377 32.9246 43.1497 32.9473C43.1738 32.9925 43.2062 33.0545 43.244 33.1299C43.319 33.2792 43.4196 33.489 43.5217 33.7317C43.6901 34.1321 44 34.9311 44 35.7391C44 37.4427 43.003 38.7775 41.8558 39.7209C40.6947 40.6757 39.1354 41.4464 37.385 42.0552C33.8654 43.2794 29.133 44 24 44C18.867 44 14.1346 43.2794 10.615 42.0552C8.86463 41.4464 7.30529 40.6757 6.14419 39.7209C4.99695 38.7775 3.99999 37.4427 3.99999 35.7391C3.99999 34.8725 4.29264 34.0922 4.49321 33.6393C4.60375 33.3898 4.71348 33.1804 4.79687 33.0311C4.83898 32.9556 4.87547 32.8935 4.9035 32.8471C4.91754 32.8238 4.92954 32.8043 4.93916 32.7889L4.94662 32.777L4.95178 32.7688ZM35.9868 29.004L24 9.77997L12.0131 29.004C12.4661 28.8609 12.9179 28.7342 13.3617 28.6282C16.4281 27.8961 20.0901 27.4783 24 27.4783C27.9099 27.4783 31.5719 27.8961 34.6383 28.6282C35.082 28.7342 35.5339 28.8609 35.9868 29.004Z" fill="currentColor" fill-rule="evenodd"></path>
 </svg>
-<h1 class="text-2xl font-bold text-gray-900 dark:text-white">Pintare</h1>
-</div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="product_catalog.html">Products</a>
-<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="index.html">Services</a>
-<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="about.html">About Us</a>
-<a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="contact.html">Contact</a>
-</nav>
-<div class="flex items-center gap-4">
-<button class="hidden md:inline-flex items-center justify-center rounded bg-primary/10 dark:bg-primary/20 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">Login</button>
-</div>
-</div>
-</div>
-</header>
-<main class="mx-auto w-full max-w-7xl flex-grow p-4 sm:p-6 lg:p-8">
-<div class="flex flex-col lg:flex-row lg:gap-12">
-<div class="lg:w-3/5">
-<nav class="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">
-<a class="hover:text-primary" href="product_catalog.html">Products</a>
-<span class="mx-2">/</span>
-<span class="text-gray-800 dark:text-gray-200">Industrial Painting Equipment</span>
-</nav>
-<h2 class="mb-6 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Industrial Airless Paint Sprayer</h2>
-<div class="grid grid-cols-3 grid-rows-2 gap-2 mb-8 aspect-[4/3] @container">
-<div class="col-span-2 row-span-2 rounded-lg overflow-hidden">
-<div class="w-full h-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCRKk-mvWrsLkhG-o7NDddk0-qiwGlwqhADVtNgAfsy9pI9u6MDjut-4I2_oH7nQU8zATMTLVwI_STginpTNsPaas3dVh4fiidtyOj9Apx6N23YGmQZDcgaKTAI4w94Dz659UoaIU1JuVAAmFqt4qkD7LscRT0RQZNlpeVVX5sH_3kjRiKVGx9Df-MYGyNz12qSqeH0p_n0LCP8RSvm6Vt-9A8U_IOLQzREXZaJVWke8dscUsz2cUzXmcxCEd2a6Hu8QYhp_DCD1vP3");'></div>
-</div>
-<div class="col-span-1 row-span-1 rounded-lg overflow-hidden">
-<div class="w-full h-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCk7u7a-HH7xteHBKkSuB1DHjXK9YzUWP56al-PZyfXpSQzW8hgOZR6HSMpZQK9BmrOGD7XeypXkg5ziDqAX8CnKvFzD6wGxh2EwKIscuDVMdUAtHqmwJ0J6HLLjvU_8EKPm5yN-1NM7_ccDTft6VVBdwaL6I50bEi1zFkI24f50TK2p-qJh3efo4jpdkpb2DANAjbZrIfWL8JweIDLIqxy1liz9bY1S8hNoClne6sjFtyAneepVCoNYRQ6g_42Zoq9lrozITluOm1v");'></div>
-</div>
-<div class="col-span-1 row-span-1 rounded-lg overflow-hidden">
-<div class="w-full h-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDL3pU44aWxVaKdAVTixZtJ4lJZpP9M2O5Ec22SVB5-xu9sP4bm2x5L8j94MhltM6MHQN1qhddY2aBUfb3WLIzGPQ4FJqMXUcKOrvxiTbYrjU8D3h_zaxHZ0MMvUL6_LGTW8lNbyja-BtSJMrK-2eKBLj9-PtUzcgCqdRpY8SBY055r_d50kYpmeWC_uFCmHHoWrUD8RWTbKmD-W_mU4X0k4himKYsPRU9VYwSViMrqcggkfaF3mHb3D-mRURfk_WjHSsmfTdgoFRQF");'></div>
-</div>
-</div>
-<div class="space-y-8">
-<div>
-<h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Product Overview</h3>
-<p class="text-gray-600 dark:text-gray-300">The Industrial Airless Paint Sprayer is designed for heavy-duty applications, providing a consistent and high-quality finish. Ideal for large-scale projects, it offers superior performance and durability. This sprayer is perfect for professionals seeking efficiency and reliability in their painting tasks.</p>
-</div>
-<div>
-<h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Features</h3>
-<div class="divide-y divide-gray-200/70 dark:divide-gray-700/70">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
-<p class="font-medium text-primary">High-Pressure Output</p>
-<p class="md:col-span-2 text-gray-600 dark:text-gray-300">Delivers consistent paint flow for uniform coverage.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
-<p class="font-medium text-primary">Durable Construction</p>
-<p class="md:col-span-2 text-gray-600 dark:text-gray-300">Built to withstand demanding industrial environments.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
-<p class="font-medium text-primary">Adjustable Spray Settings</p>
-<p class="md:col-span-2 text-gray-600 dark:text-gray-300">Allows for precise control over paint application.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
-<p class="font-medium text-primary">Easy Maintenance</p>
-<p class="md:col-span-2 text-gray-600 dark:text-gray-300">Simplified design for quick and easy cleaning and upkeep.</p>
-</div>
-</div>
-</div>
-<div>
-<h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Technical Specifications</h3>
-<div class="divide-y divide-gray-200/70 dark:divide-gray-700/70">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
-<p class="font-medium text-primary">Max Pressure</p>
-<p class="md:col-span-2 font-mono text-gray-600 dark:text-gray-300">3300 PSI</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
-<p class="font-medium text-primary">Flow Rate</p>
-<p class="md:col-span-2 font-mono text-gray-600 dark:text-gray-300">1.2 GPM</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
-<p class="font-medium text-primary">Power Source</p>
-<p class="md:col-span-2 font-mono text-gray-600 dark:text-gray-300">Electric</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
-<p class="font-medium text-primary">Weight</p>
-<p class="md:col-span-2 font-mono text-gray-600 dark:text-gray-300">45 lbs</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="lg:w-2/5 mt-12 lg:mt-0">
-<div class="sticky top-24 rounded-xl bg-gray-50/50 dark:bg-gray-800/20 p-6 shadow-sm ring-1 ring-gray-200/50 dark:ring-gray-700/50">
-<h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Request a Quote</h3>
-<form class="space-y-4">
-<div>
-<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="name">Name</label>
-<input class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent" id="name" name="name" placeholder="Enter your name" type="text"/>
-</div>
-<div>
-<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="company">Company</label>
-<input class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent" id="company" name="company" placeholder="Enter your company name" type="text"/>
-</div>
-<div>
-<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="email">Email</label>
-<input class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent" id="email" name="email" placeholder="Enter your email" type="email"/>
-</div>
-<div>
-<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="phone">Phone Number</label>
-<input class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent" id="phone" name="phone" placeholder="Enter your phone number" type="tel"/>
-</div>
-<div>
-<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="message">Message</label>
-<textarea class="form-textarea w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent" id="message" name="message" placeholder="Enter your message" rows="4"></textarea>
-</div>
-<button class="w-full flex items-center justify-center rounded bg-primary px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all" type="submit">
+                        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Pintare</h1>
+                    </div>
+                    <nav class="hidden md:flex items-center gap-8">
+                        <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="product_catalog.html">Products</a>
+                        <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="index.html">Services</a>
+                        <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="about.html">About Us</a>
+                        <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors" href="contact.html">Contact</a>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <button class="hidden md:inline-flex items-center justify-center rounded bg-primary/10 dark:bg-primary/20 px-4 py-2 text-sm font-medium text-primary hover:bg-primary/20 dark:hover:bg-primary/30 transition-colors">Login</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="mx-auto w-full max-w-7xl flex-grow p-4 sm:p-6 lg:p-8">
+            <div class="flex flex-col lg:flex-row lg:gap-12">
+                <div class="lg:w-3/5">
+                    <nav class="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">
+                        <a class="hover:text-primary" href="product_catalog.html">Products</a>
+                        <span class="mx-2">/</span>
+                        <span class="text-gray-800 dark:text-gray-200">Industrial Painting Equipment</span>
+                    </nav>
+                    <h2 class="mb-6 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">Industrial Airless Paint Sprayer</h2>
+                    <div class="grid grid-cols-3 grid-rows-2 gap-2 mb-8 aspect-[4/3] @container">
+                        <div class="col-span-2 row-span-2 rounded-lg overflow-hidden">
+                            <div class="w-full h-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCRKk-mvWrsLkhG-o7NDddk0-qiwGlwqhADVtNgAfsy9pI9u6MDjut-4I2_oH7nQU8zATMTLVwI_STginpTNsPaas3dVh4fiidtyOj9Apx6N23YGmQZDcgaKTAI4w94Dz659UoaIU1JuVAAmFqt4qkD7LscRT0RQZNlpeVVX5sH_3kjRiKVGx9Df-MYGyNz12qSqeH0p_n0LCP8RSvm6Vt-9A8U_IOLQzREXZaJVWke8dscUsz2cUzXmcxCEd2a6Hu8QYhp_DCD1vP3");'></div>
+                        </div>
+                        <div class="col-span-1 row-span-1 rounded-lg overflow-hidden">
+                            <div class="w-full h-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCk7u7a-HH7xteHBKkSuB1DHjXK9YzUWP56al-PZyfXpSQzW8hgOZR6HSMpZQK9BmrOGD7XeypXkg5ziDqAX8CnKvFzD6wGxh2EwKIscuDVMdUAtHqmwJ0J6HLLjvU_8EKPm5yN-1NM7_ccDTft6VVBdwaL6I50bEi1zFkI24f50TK2p-qJh3efo4jpdkpb2DANAjbZrIfWL8JweIDLIqxy1liz9bY1S8hNoClne6sjFtyAneepVCoNYRQ6g_42Zoq9lrozITluOm1v");'></div>
+                        </div>
+                        <div class="col-span-1 row-span-1 rounded-lg overflow-hidden">
+                            <div class="w-full h-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDL3pU44aWxVaKdAVTixZtJ4lJZpP9M2O5Ec22SVB5-xu9sP4bm2x5L8j94MhltM6MHQN1qhddY2aBUfb3WLIzGPQ4FJqMXUcKOrvxiTbYrjU8D3h_zaxHZ0MMvUL6_LGTW8lNbyja-BtSJMrK-2eKBLj9-PtUzcgCqdRpY8SBY055r_d50kYpmeWC_uFCmHHoWrUD8RWTbKmD-W_mU4X0k4himKYsPRU9VYwSViMrqcggkfaF3mHb3D-mRURfk_WjHSsmfTdgoFRQF");'></div>
+                        </div>
+                    </div>
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Product Overview</h3>
+                            <p class="text-gray-600 dark:text-gray-300">The Industrial Airless Paint Sprayer is designed for heavy-duty applications, providing a consistent and high-quality finish. Ideal for large-scale projects, it offers superior performance and durability. This sprayer is perfect
+                                for professionals seeking efficiency and reliability in their painting tasks.</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Features</h3>
+                            <div class="divide-y divide-gray-200/70 dark:divide-gray-700/70">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
+                                    <p class="font-medium text-primary">High-Pressure Output</p>
+                                    <p class="md:col-span-2 text-gray-600 dark:text-gray-300">Delivers consistent paint flow for uniform coverage.</p>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
+                                    <p class="font-medium text-primary">Durable Construction</p>
+                                    <p class="md:col-span-2 text-gray-600 dark:text-gray-300">Built to withstand demanding industrial environments.</p>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
+                                    <p class="font-medium text-primary">Adjustable Spray Settings</p>
+                                    <p class="md:col-span-2 text-gray-600 dark:text-gray-300">Allows for precise control over paint application.</p>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
+                                    <p class="font-medium text-primary">Easy Maintenance</p>
+                                    <p class="md:col-span-2 text-gray-600 dark:text-gray-300">Simplified design for quick and easy cleaning and upkeep.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Technical Specifications</h3>
+                            <div class="divide-y divide-gray-200/70 dark:divide-gray-700/70">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
+                                    <p class="font-medium text-primary">Max Pressure</p>
+                                    <p class="md:col-span-2 font-mono text-gray-600 dark:text-gray-300">3300 PSI</p>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
+                                    <p class="font-medium text-primary">Flow Rate</p>
+                                    <p class="md:col-span-2 font-mono text-gray-600 dark:text-gray-300">1.2 GPM</p>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
+                                    <p class="font-medium text-primary">Power Source</p>
+                                    <p class="md:col-span-2 font-mono text-gray-600 dark:text-gray-300">Electric</p>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-2 py-4">
+                                    <p class="font-medium text-primary">Weight</p>
+                                    <p class="md:col-span-2 font-mono text-gray-600 dark:text-gray-300">45 lbs</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-2/5 mt-12 lg:mt-0">
+                    <div class="sticky top-24 rounded-xl bg-gray-50/50 dark:bg-gray-800/20 p-6 shadow-sm ring-1 ring-gray-200/50 dark:ring-gray-700/50">
+                        <h3 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Request a Quote</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="name">Name</label>
+                                <input class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent" id="name" name="name" placeholder="Enter your name"
+                                    type="text" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="company">Company</label>
+                                <input class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent" id="company" name="company"
+                                    placeholder="Enter your company name" type="text" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="email">Email</label>
+                                <input class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent" id="email" name="email" placeholder="Enter your email"
+                                    type="email" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="phone">Phone Number</label>
+                                <input class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent" id="phone" name="phone" placeholder="Enter your phone number"
+                                    type="tel" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" for="message">Message</label>
+                                <textarea class="form-textarea w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent" id="message" name="message"
+                                    placeholder="Enter your message" rows="4"></textarea>
+                            </div>
+                            <button class="w-full flex items-center justify-center rounded bg-primary px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary transition-all"
+                                type="submit">
                   Submit Request
                 </button>
-</form>
-</div>
-</div>
-</div>
-</main>
-</div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
-</body></html>
+</body>
+
+</html>
