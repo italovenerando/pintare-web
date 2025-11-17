@@ -214,6 +214,15 @@ function verificarToken(req, res, next) {
     });
 }
 
+// --- O "SEGURANÇA" (Middleware de Verificação de ADMIN) ---
+// Este SÓ DEVE ser usado DEPOIS do verificarToken
+function verificarAdmin(req, res, next) {
+    if (!req.user || !req.user.isAdmin) {
+        return res.status(403).json({ message: 'Acesso negado. Rota exclusiva para administradores.' });
+    }
+    // Se req.user.isAdmin for true, continue
+    next();
+}
 
 // --- ROTAS PROTEGIDAS (Exemplos) ---
 // Rotas que SÓ funcionam se o usuário estiver logado (enviar o token)
@@ -233,6 +242,68 @@ app.get('/api/admin/check', verificarToken, (req, res) => {
         return res.status(403).json({ message: 'Acesso negado. Somente administradores.' });
     }
     res.json({ message: 'Olá, Admin!', admin: req.user });
+});
+
+// --- ROTAS DE ADMIN (CRUD de Produtos) ---
+// Todas as rotas aqui são protegidas e exigem login de admin
+
+// 1. CRIAR um novo produto
+app.post('/api/admin/produtos', [verificarToken, verificarAdmin], (req, res) => {
+    const { nome, descricao_curta, descricao_longa, preco, imagem_url, categoria, tags } = req.body;
+
+    const sql = `INSERT INTO produtos (nome, descricao_curta, descricao_longa, preco, imagem_url, categoria, tags, destaque) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, 0)`; // Novos produtos não são destaque por padrão
+
+    db.run(sql, [nome, descricao_curta, descricao_longa, preco, imagem_url, categoria, tags], function(err) {
+        if (err) {
+            return res.status(500).json({ message: 'Erro ao criar produto', error: err.message });
+        }
+        res.status(201).json({ message: 'Produto criado com sucesso!', id: this.lastID });
+    });
+});
+
+// 2. ATUALIZAR um produto
+app.put('/api/admin/produtos/:id', [verificarToken, verificarAdmin], (req, res) => {
+    const { id } = req.params;
+    const { nome, descricao_curta, descricao_longa, preco, imagem_url, categoria, tags, destaque } = req.body;
+
+    const sql = `UPDATE produtos SET 
+                    nome = ?, 
+                    descricao_curta = ?, 
+                    descricao_longa = ?, 
+                    preco = ?, 
+                    imagem_url = ?, 
+                    categoria = ?, 
+                    tags = ?, 
+                    destaque = ? 
+                 WHERE id = ?`;
+
+    db.run(sql, [nome, descricao_curta, descricao_longa, preco, imagem_url, categoria, tags, !!destaque, id], function(err) {
+        if (err) {
+            return res.status(500).json({ message: 'Erro ao atualizar produto', error: err.message });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ message: 'Produto não encontrado para atualização.' });
+        }
+        res.json({ message: 'Produto atualizado com sucesso!' });
+    });
+});
+
+// 3. DELETAR um produto
+app.delete('/api/admin/produtos/:id', [verificarToken, verificarAdmin], (req, res) => {
+    const { id } = req.params;
+
+    const sql = 'DELETE FROM produtos WHERE id = ?';
+
+    db.run(sql, [id], function(err) {
+        if (err) {
+            return res.status(500).json({ message: 'Erro ao deletar produto', error: err.message });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ message: 'Produto não encontrado para deletar.' });
+        }
+        res.json({ message: 'Produto deletado com sucesso!' });
+    });
 });
 
 // Iniciar o servidor
