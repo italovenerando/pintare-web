@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -16,8 +18,10 @@
                 extend: {
                     colors: {
                         "primary": "#f97306",
+                        "primary-dark": "#d66204", // Adicionado para hover do botão
                         "background-light": "#f8f7f5",
                         "background-dark": "#23180f",
+                        // Cores específicas da página About mantidas
                         "foreground-light": "#23180f",
                         "foreground-dark": "#f8f7f5",
                         "card-light": "#ffffff",
@@ -42,33 +46,131 @@
         body {
             font-family: 'Work Sans', sans-serif;
         }
+        /* Estilos adicionados para o Header e Dropdowns */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24
+        }
+        /* Menu Produtos */
+        .dropdown-content {
+            display: none;
+        }
+        .group:hover .dropdown-content {
+            display: block;
+        }
+        /* Sub-menu lateral */
+        .group\/nested:hover .dropdown-nested {
+            display: block;
+        }
+        /* Menu Avatar (controlado por JS) */
+        .avatar-dropdown-menu {
+            display: none;
+        }
+        .avatar-dropdown-menu.active {
+            display: block;
+        }
     </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-foreground-light dark:text-foreground-dark">
-    <div class="relative min-h-screen w-full">
-        <header class="sticky top-0 z-50 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-border-light dark:border-border-dark">
-            <div class="container mx-auto flex items-center justify-between px-6 py-4">
-                <a href="index.html" class="flex items-center gap-3">
-                    <div class="text-primary size-8">
-                        <img src="https://cdn.sistemawbuy.com.br/arquivos/2c9361815cecd146294cb75587d9fe1d/config/pistolas-de-pintura,logo-sem-fundo-521.png" alt="logo-pintare">
-                        
+    <div class="relative flex min-h-screen w-full flex-col">
+        
+        <header class="sticky top-0 z-50 w-full bg-white dark:bg-background-dark/95 border-b border-neutral-200 dark:border-neutral-800 shadow-sm backdrop-blur-sm">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex h-20 items-center justify-between gap-4">
+                    
+                    <div class="flex items-center gap-8">
+                        <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
+                            <div class="text-primary size-8">
+                                <img src="https://cdn.sistemawbuy.com.br/arquivos/2c9361815cecd146294cb75587d9fe1d/config/pistolas-de-pintura,logo-sem-fundo-521.png" alt="logo-pintare" class="h-full w-full object-contain">
+                            </div>
+                            <h2 class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white hidden sm:block">Pintare</h2>
+                        </a>
+
+                        <nav class="hidden xl:flex items-center gap-6">
+                            <div class="relative group h-20 flex items-center">
+                                <a href="product_catalog.html" class="flex items-center gap-1 text-sm font-medium text-neutral-600 transition-colors hover:text-primary dark:text-neutral-300 dark:hover:text-primary focus:outline-none">
+                                    Produtos
+                                    <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                                </a>
+
+                                <div class="dropdown-content absolute top-full left-0 w-64 bg-white dark:bg-neutral-900 shadow-xl rounded-b-lg border border-neutral-100 dark:border-neutral-800 py-2 z-50">
+                                    <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Pistolas de gravidade</a>
+                                    
+                                    <div class="group/nested relative">
+                                        <button class="w-full flex items-center justify-between px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">
+                                            <span>Pistolas de pressão</span>
+                                            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                                        </button>
+                                        
+                                        <div class="dropdown-nested hidden absolute left-full top-0 w-56 bg-white dark:bg-neutral-900 shadow-xl rounded-lg border border-neutral-100 dark:border-neutral-800 py-2 -ml-1">
+                                            <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Filtro de ar</a>
+                                            <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Mangueiras</a>
+                                            <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Peças de JGA</a>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Pistolas de sucção</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Tanques</a>
+                                    <div class="border-t border-neutral-100 dark:border-neutral-800 my-1"></div>
+                                    <a href="#" class="flex items-center justify-between px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">
+                                        Filtros <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <a class="text-sm font-medium text-primary dark:text-primary" href="about.html">Sobre Nós</a>
+                            <a class="text-sm font-medium text-neutral-600 transition-colors hover:text-primary dark:text-neutral-300 dark:hover:text-primary" href="contact.html">Contato</a>
+                        </nav>
                     </div>
-                    <h2 class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">Pintare</h2>
-                </a>
-                <nav class="hidden md:flex items-center gap-8">
-                    <a class="text-sm font-medium hover:text-primary transition-colors" href="product_catalog.html">Produtos</a>
-                    <a class="text-sm font-medium text-primary" href="about.html">Sobre Nós</a>
-                    <a class="text-sm font-medium hover:text-primary transition-colors" href="contact.html">Contato</a>
-                </nav>
-                <div class="flex items-center gap-4">
-                    <a class="bg-primary text-white hover:bg-primary/90 focus:ring-4 focus:ring-primary/30 font-bold rounded-lg text-sm px-5 py-2.5 text-center transition-colors" href="product_details.html">
-                        Solicite um orçamento
-                    </a>
+
+                    <div class="hidden lg:flex flex-1 max-w-md mx-4">
+                        <div class="relative w-full group">
+                            <input type="text" 
+                                placeholder="Pesquisar produtos..." 
+                                class="w-full h-10 pl-4 pr-12 text-sm bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-neutral-400">
+                            <button class="absolute right-0 top-0 h-10 w-10 flex items-center justify-center bg-primary hover:bg-primary-dark text-white rounded-r-lg transition-colors">
+                                <span class="material-symbols-outlined text-[20px]">search</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 sm:gap-6">
+                        
+                        <a href="cart.html" class="relative group text-neutral-600 hover:text-primary dark:text-neutral-300 dark:hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-2xl">shopping_cart</span>
+                            <span class="absolute -top-2 -right-2 h-5 w-5 flex items-center justify-center rounded-full bg-primary text-[10px] font-bold text-white border-2 border-white dark:border-background-dark">2</span>
+                        </a>
+
+                        <div class="relative">
+                            <button id="avatar-button" class="flex items-center justify-center size-10 rounded-full bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50">
+                                <span class="material-symbols-outlined text-2xl">person</span>
+                            </button>
+
+                            <div id="avatar-dropdown-menu" class="avatar-dropdown-menu absolute right-0 mt-3 w-48 bg-white dark:bg-neutral-900 shadow-xl rounded-lg border border-neutral-100 dark:border-neutral-800 py-2 z-50">
+                                <div id="not-authenticated-options">
+                                    <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Login</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Cadastro</a>
+                                </div>
+                                <div id="authenticated-options" class="hidden">
+                                    <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary dark:text-neutral-300 dark:hover:bg-neutral-800">Minha Conta</a>
+                                    <div class="border-t border-neutral-100 dark:border-neutral-800 my-1"></div>
+                                    <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-neutral-800">Sair</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="hidden md:inline-flex h-10 items-center justify-center rounded-lg bg-primary px-5 text-sm font-bold text-white shadow-sm transition-all hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50">
+                            Solicitar um orçamento
+                        </button>
+
+                        <button class="xl:hidden p-2 text-neutral-700 dark:text-neutral-300">
+                            <span class="material-symbols-outlined">menu</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </header>
-        <main class="container mx-auto px-6 py-16">
+
+        <main class="container mx-auto px-6 py-16 flex-grow">
             <div class="max-w-4xl mx-auto">
                 <div class="text-center mb-12">
                     <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-foreground-light dark:text-foreground-dark mb-4">
@@ -146,6 +248,40 @@
         </footer>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lógica do Avatar Dropdown
+            const avatarButton = document.getElementById('avatar-button');
+            const avatarDropdownMenu = document.getElementById('avatar-dropdown-menu');
+            const notAuthenticatedOptions = document.getElementById('not-authenticated-options');
+            const authenticatedOptions = document.getElementById('authenticated-options');
+
+            // Simula o estado de autenticação (mude para true para ver o menu de logado)
+            const isAuthenticated = false; 
+
+            if (isAuthenticated) {
+                notAuthenticatedOptions.classList.add('hidden');
+                authenticatedOptions.classList.remove('hidden');
+            } else {
+                notAuthenticatedOptions.classList.remove('hidden');
+                authenticatedOptions.classList.add('hidden');
+            }
+
+            if(avatarButton && avatarDropdownMenu) {
+                avatarButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    avatarDropdownMenu.classList.toggle('active');
+                });
+
+                // Fechar ao clicar fora
+                document.addEventListener('click', (event) => {
+                    if (!avatarButton.contains(event.target) && !avatarDropdownMenu.contains(event.target)) {
+                        avatarDropdownMenu.classList.remove('active');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
