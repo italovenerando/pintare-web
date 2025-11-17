@@ -1,180 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
-  <meta charset="utf-8" />
-  <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
-  <link as="style"
-    href="https://fonts.googleapis.com/css2?display=swap&amp;family=Work+Sans%3Awght%40400%3B500%3B600%3B700&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
-    onload="this.rel='stylesheet'" rel="stylesheet" />
-  <title>Pintare - Catálogo de Produtos</title>
-  <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            primary: "#f97306",
-            "background-light": "#f8f7f5",
-            "background-dark": "#23180f",
-          },
-          fontFamily: {
-            display: ["Work Sans"],
-          },
-          borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
-        },
-      },
-    };
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Work+Sans%3Awght%40400%3B500%3B600%3B700&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet" />
+    <title>Pintare - Catálogo de Produtos</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#f97306",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#23180f",
+                    },
+                    fontFamily: {
+                        display: ["Work Sans"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                },
+            },
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-zinc-800 dark:text-zinc-200">
-  <div class="flex min-h-screen flex-col">
-    <header
-      class="sticky top-0 z-10 w-full border-b border-zinc-200/50 bg-background-light/80 backdrop-blur-sm dark:border-zinc-800/50 dark:bg-background-dark/80">
-      <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-4">
-          <a href="index.html" class="flex items-center gap-3">
-            <div class="text-primary size-8">
-              <img
-                src="https://cdn.sistemawbuy.com.br/arquivos/2c9361815cecd146294cb75587d9fe1d/config/pistolas-de-pintura,logo-sem-fundo-521.png"
-                alt="logo-pintare">
-            </div>
-            <h2 class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">Pintare</h2>
-          </a>
-          </div>
-        <nav class="hidden items-center gap-8 md:flex">
-          <a class="text-sm font-medium text-zinc-600 hover:text-primary dark:text-zinc-300 dark:hover:text-primary"
-            href="product_catalog.html">Produtos</a>
-          <a class="text-sm font-medium text-zinc-600 hover:text-primary dark:text-zinc-300 dark:hover:text-primary"
-            href="about.html">Sobre Nós</a>
-          <a class="text-sm font-medium text-zinc-600 hover:text-primary dark:text-zinc-300 dark:hover:text-primary"
-            href="contact.html">Contato</a>
-        </nav>
-        <div class="flex items-center gap-4">
-          <button
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700">
+    <div class="flex min-h-screen flex-col">
+        <header class="sticky top-0 z-10 w-full border-b border-zinc-200/50 bg-background-light/80 backdrop-blur-sm dark:border-zinc-800/50 dark:bg-background-dark/80">
+            <div class="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center gap-4">
+                    <a href="index.html" class="flex items-center gap-3">
+                        <div class="text-primary size-8">
+                            <img src="https://cdn.sistemawbuy.com.br/arquivos/2c9361815cecd146294cb75587d9fe1d/config/pistolas-de-pintura,logo-sem-fundo-521.png" alt="logo-pintare">
+                        </div>
+                        <h2 class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">Pintare</h2>
+                    </a>
+                </div>
+                <nav class="hidden items-center gap-8 md:flex">
+                    <a class="text-sm font-medium text-zinc-600 hover:text-primary dark:text-zinc-300 dark:hover:text-primary" href="product_catalog.html">Produtos</a>
+                    <a class="text-sm font-medium text-zinc-600 hover:text-primary dark:text-zinc-300 dark:hover:text-primary" href="about.html">Sobre Nós</a>
+                    <a class="text-sm font-medium text-zinc-600 hover:text-primary dark:text-zinc-300 dark:hover:text-primary" href="contact.html">Contato</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <button class="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-100 text-zinc-500 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700">
             <span class="material-symbols-outlined"> search </span>
           </button>
-          <div class="h-10 w-10 rounded-full bg-cover bg-center"
-            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWjgqkTnh3EEBlxvLgucw2UamwphUTMOcKS-4QxxC38-wiCuKyqnKxLmocJjGP1q2xOv6oCGLCmyXSHFj2fWjLRuShwCpb2RnTFc0QiH9sQuQGEOn0JrSStPKnzyQ69kx0UawPDVFsI70l6xxdEvGeVq2_mnaa25RyKmXN-YHVzheeREsG8LIhwBmzzm5a4JvsK6N_kVneFrD6gLuPFGn6pstKsRtwZ_UF8bg_6sRmPGaAws8VqwZsPB9i3r0raU6bw0PEcG5Lq6L4");'>
-          </div>
-        </div>
-      </div>
-    </header>
-    <main class="flex-grow">
-      <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div class="mb-12 text-center">
-          <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">Nosso Catálogo de
-            Produtos</h2>
-          <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Explore nossa ampla gama de equipamentos de pintura
-            industrial.</p>
-        </div>
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          <a class="group block" href="#">
-            <div class="overflow-hidden rounded-lg">
-              <div
-                class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaY8snlzGw80aevsGDMjUoS5f6tUq_CUkpXFa72qRLxlceKpIe8fdZJ5hiZg-KiN806AMCBLcxe0f-iTpPyseqyxGpysxOa6KG4o2NS6FV5MvmUhz_aqXNa0hvITpf-GaJG_GlnRZa2s8b3R-m4Tg4EJ8dxwZnbrupl8xyWiVNIRMAfJO6RKwrZA9jgNe4IIyNLbbLcGCsOECwwqUrmbS_REvF5vRyX7vNsdPxhqVDmNkNFYnbZeBaVv84gvUVBD7ir1BB3pBD3prz");'>
-              </div>
+                    <div class="h-10 w-10 rounded-full bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWjgqkTnh3EEBlxvLgucw2UamwphUTMOcKS-4QxxC38-wiCuKyqnKxLmocJjGP1q2xOv6oCGLCmyXSHFj2fWjLRuShwCpb2RnTFc0QiH9sQuQGEOn0JrSStPKnzyQ69kx0UawPDVFsI70l6xxdEvGeVq2_mnaa25RyKmXN-YHVzheeREsG8LIhwBmzzm5a4JvsK6N_kVneFrD6gLuPFGn6pstKsRtwZ_UF8bg_6sRmPGaAws8VqwZsPB9i3r0raU6bw0PEcG5Lq6L4");'>
+                    </div>
+                </div>
             </div>
-            <div class="mt-4">
-              <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Pistolas de Pintura</h3>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Equipamentos de alta precisão para acabamentos
-                perfeitos.</p>
+        </header>
+        <main class="flex-grow">
+            <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+                <div class="mb-12 text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl">Nosso Catálogo de Produtos
+                    </h2>
+                    <p class="mt-4 text-lg text-zinc-600 dark:text-zinc-400">Explore nossa ampla gama de equipamentos de pintura industrial.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                    <a class="group block" href="#">
+                        <div class="overflow-hidden rounded-lg">
+                            <div class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaY8snlzGw80aevsGDMjUoS5f6tUq_CUkpXFa72qRLxlceKpIe8fdZJ5hiZg-KiN806AMCBLcxe0f-iTpPyseqyxGpysxOa6KG4o2NS6FV5MvmUhz_aqXNa0hvITpf-GaJG_GlnRZa2s8b3R-m4Tg4EJ8dxwZnbrupl8xyWiVNIRMAfJO6RKwrZA9jgNe4IIyNLbbLcGCsOECwwqUrmbS_REvF5vRyX7vNsdPxhqVDmNkNFYnbZeBaVv84gvUVBD7ir1BB3pBD3prz");'>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Pistolas de Pintura</h3>
+                            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Equipamentos de alta precisão para acabamentos perfeitos.
+                            </p>
+                        </div>
+                    </a>
+                    <a class="group block" href="#">
+                        <div class="overflow-hidden rounded-lg">
+                            <div class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDvb-8auan9ebM2o8JG3HGNNAruqhSWciOPGoqTxdll2APdaRY2KioBZDzJdGMvfsotidm0rcCjTQst6S-gSQwZECUqsbVNXJ5gv-qmKhynCXUOVYeaksZ8v98gRlSZgc7GB_6xSbnHzC1kAF4zEbM7vfzT0maXGtmfOhapsXSa2t0nv9VyBgSOY4x2f8AyEGf4c_ry0LelZGcBNfWs8ATuXGA7QdL5ji3WGOKhz9DOCMNh9b-M8U4JuoRsIvE-vVmnf-vms2FId6p8");'>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Tanques de Pressão</h3>
+                            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Soluções robustas para armazenamento e aplicação de tintas.</p>
+                        </div>
+                    </a>
+                    <a class="group block" href="#">
+                        <div class="overflow-hidden rounded-lg">
+                            <div class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBFa6l2PKxl6X5Do10ITk3D3cx8fa5e0VLljF-w07tHyjwWbLNQTNePqQE6E_OGaGdbwWla4Ko0yLWxTGy_ki3j3NDdFFAXqj-U0WY_e4NuciVLH-JiX7drvDgw65-boVUCpPTsTcNqwcC9r8AKF6p7dGwRCuoRkJuN6PMd8lNAoDoE0hq4J9l_DIOD4HO-eKLlAa6gSAybnnLdsUbCXYlHO8QiJAYvGxSC2-_tOM7RKKZf6pUKi9oZSBSiKRGCofSk7Vqmxg1PJ65h");'>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Bombas de Fluido</h3>
+                            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Eficiência e potência para transferência de fluidos.
+                            </p>
+                        </div>
+                    </a>
+                    <a class="group block" href="#">
+                        <div class="overflow-hidden rounded-lg">
+                            <div class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlQPa3LbCulNW4klYjy_UbH6FbI8RdpD_QuFji8QcOsG3fzhdB9zZIU9sqOYCD55cImfMVlvm5ABhzAxRUEUPGu0P1KCRmjirZ6Hqt0ef2V_jXB9nP99zphp_uYp7eJdd4MtoB48sCkS2Jdu_vkKPCAzEI2u-FpksLovDBTyvCjb0X5rOXIaGsttU1OjKDpKDnXidMIXAEeJVTZZhGn6uuo-Dvo0ol6jxckGh355x_kSuFRhNP7y60mHyoj4jg4kmNoWzSLZ71p1V_");'>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Mangueiras e Conexões</h3>
+                            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Acessórios essenciais para sistemas de pintura completos.
+                            </p>
+                        </div>
+                    </a>
+                    <a class="group block" href="#">
+                        <div class="overflow-hidden rounded-lg">
+                            <div class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAkSqVA_3Q1i3E1C1w-CTbNYY2gdjABnHNkTdNjLKTpi6hmdb4rMTSMlL0JS0FVBX9Z9A6eZpVypixouOqTCLCGFZETJD7PJF37GiNfa0V3oBgtdy3afp8k6gdswyBN6YS9HauinKUfcU0czQzdYgKSisbokDhGcpTOf_6IRDFRUfw1xtZ3UhYPh3xOlqJoGpf5S5_ut4tKOMmyRFtC5PwPIf47JzR2Q2f4YS5-2KzjSe0JdSvVN_v48LnfjIFjt_meQPOKKWvtqdtg");'>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Filtros</h3>
+                            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Garanta a pureza da sua tinta e a qualidade do seu trabalho.</p>
+                        </div>
+                    </a>
+                    <a class="group block" href="#">
+                        <div class="overflow-hidden rounded-lg">
+                            <div class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA50nHLcRkas4ZejJb4ME4wxIBR0UXELO2yx4XSbo5VxrTwT95NAkjaOnISKk1p6DoQK0TEP53D7xE9qRMPCalfW-yV4f-Ug5TK2pK1VOEsZbpaeuZhYePByrK2VJ62bzSpC94kYvy-qRrIxl28pvXE4lqaoVS9EqSflSmUf-M218VYzFieX-e1lc9ux5BMXR3RQntZXrjiODXjyma1fnsIMFhqI2ea8ZGeLbiy0CGIwqRXGBhzriBItfdadTZPE9PFRsp3mDcgw7_I");'>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Motores a Ar</h3>
+                            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Potência pneumática confiável para seus equipamentos.
+                            </p>
+                        </div>
+                    </a>
+                    <a class="group block" href="#">
+                        <div class="overflow-hidden rounded-lg">
+                            <div class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDBYxZJTGbqzRytHVG84fsD4a8PJ1XA6QO8md2a1g23cNEw1COjC7Wpbb5t3uS6XNUShTqBPCBE5RBQQuWlL87ql1z6GC5ZOHs768G6q8lqp5PWln9KAly5voSQ7XzNSCA80j_fsk9UuIPRSbJRNGON0XBKZdbb9J9DiRPjdwelUrxX8LkmrF53rsr_sVDheLIAB_-2EHdcU-3NtKzt9S_iZ-GFqo2MLPyp0CJZR92uIcuOLDNTM087hDOHJJBbnWksilN81yoydaEo");'>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Artigos Pneumáticos Diversos</h3>
+                            <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Tudo o que você precisa para seu sistema pneumático.
+                            </p>
+                        </div>
+                    </a>
+                </div>
             </div>
-          </a>
-          <a class="group block" href="#">
-            <div class="overflow-hidden rounded-lg">
-              <div
-                class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDvb-8auan9ebM2o8JG3HGNNAruqhSWciOPGoqTxdll2APdaRY2KioBZDzJdGMvfsotidm0rcCjTQst6S-gSQwZECUqsbVNXJ5gv-qmKhynCXUOVYeaksZ8v98gRlSZgc7GB_6xSbnHzC1kAF4zEbM7vfzT0maXGtmfOhapsXSa2t0nv9VyBgSOY4x2f8AyEGf4c_ry0LelZGcBNfWs8ATuXGA7QdL5ji3WGOKhz9DOCMNh9b-M8U4JuoRsIvE-vVmnf-vms2FId6p8");'>
-              </div>
+        </main>
+        <footer class="border-t border-zinc-200/50 bg-background-light dark:border-zinc-800/50 dark:bg-background-dark">
+            <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+                <p class="text-center text-sm text-zinc-500 dark:text-zinc-400">© 2024 Pintare Equipamentos Para Pintura LTDA. Todos os direitos reservados.</p>
             </div>
-            <div class="mt-4">
-              <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Tanques de Pressão</h3>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Soluções robustas para armazenamento e aplicação
-                de tintas.</p>
-            </div>
-          </a>
-          <a class="group block" href="#">
-            <div class="overflow-hidden rounded-lg">
-              <div
-                class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBFa6l2PKxl6X5Do10ITk3D3cx8fa5e0VLljF-w07tHyjwWbLNQTNePqQE6E_OGaGdbwWla4Ko0yLWxTGy_ki3j3NDdFFAXqj-U0WY_e4NuciVLH-JiX7drvDgw65-boVUCpPTsTcNqwcC9r8AKF6p7dGwRCuoRkJuN6PMd8lNAoDoE0hq4J9l_DIOD4HO-eKLlAa6gSAybnnLdsUbCXYlHO8QiJAYvGxSC2-_tOM7RKKZf6pUKi9oZSBSiKRGCofSk7Vqmxg1PJ65h");'>
-              </div>
-            </div>
-            <div class="mt-4">
-              <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Bombas de Fluido</h3>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Eficiência e potência para transferência de
-                fluidos.</p>
-            </div>
-          </a>
-          <a class="group block" href="#">
-            <div class="overflow-hidden rounded-lg">
-              <div
-                class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlQPa3LbCulNW4klYjy_UbH6FbI8RdpD_QuFji8QcOsG3fzhdB9zZIU9sqOYCD55cImfMVlvm5ABhzAxRUEUPGu0P1KCRmjirZ6Hqt0ef2V_jXB9nP99zphp_uYp7eJdd4MtoB48sCkS2Jdu_vkKPCAzEI2u-FpksLovDBTyvCjb0X5rOXIaGsttU1OjKDpKDnXidMIXAEeJVTZZhGn6uuo-Dvo0ol6jxckGh355x_kSuFRhNP7y60mHyoj4jg4kmNoWzSLZ71p1V_");'>
-              </div>
-            </div>
-            <div class="mt-4">
-              <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Mangueiras e Conexões</h3>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Acessórios essenciais para sistemas de pintura
-                completos.</p>
-            </div>
-          </a>
-          <a class="group block" href="#">
-            <div class="overflow-hidden rounded-lg">
-              <div
-                class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAkSqVA_3Q1i3E1C1w-CTbNYY2gdjABnHNkTdNjLKTpi6hmdb4rMTSMlL0JS0FVBX9Z9A6eZpVypixouOqTCLCGFZETJD7PJF37GiNfa0V3oBgtdy3afp8k6gdswyBN6YS9HauinKUfcU0czQzdYgKSisbokDhGcpTOf_6IRDFRUfw1xtZ3UhYPh3xOlqJoGpf5S5_ut4tKOMmyRFtC5PwPIf47JzR2Q2f4YS5-2KzjSe0JdSvVN_v48LnfjIFjt_meQPOKKWvtqdtg");'>
-              </div>
-            </div>
-            <div class="mt-4">
-              <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Filtros</h3>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Garanta a pureza da sua tinta e a qualidade do
-                seu trabalho.</p>
-            </div>
-          </a>
-          <a class="group block" href="#">
-            <div class="overflow-hidden rounded-lg">
-              <div
-                class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA50nHLcRkas4ZejJb4ME4wxIBR0UXELO2yx4XSbo5VxrTwT95NAkjaOnISKk1p6DoQK0TEP53D7xE9qRMPCalfW-yV4f-Ug5TK2pK1VOEsZbpaeuZhYePByrK2VJ62bzSpC94kYvy-qRrIxl28pvXE4lqaoVS9EqSflSmUf-M218VYzFieX-e1lc9ux5BMXR3RQntZXrjiODXjyma1fnsIMFhqI2ea8ZGeLbiy0CGIwqRXGBhzriBItfdadTZPE9PFRsp3mDcgw7_I");'>
-              </div>
-            </div>
-            <div class="mt-4">
-              <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Motores a Ar</h3>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Potência pneumática confiável para seus
-                equipamentos.</p>
-            </div>
-          </a>
-          <a class="group block" href="#">
-            <div class="overflow-hidden rounded-lg">
-              <div
-                class="h-56 w-full transform bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-105"
-                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDBYxZJTGbqzRytHVG84fsD4a8PJ1XA6QO8md2a1g23cNEw1COjC7Wpbb5t3uS6XNUShTqBPCBE5RBQQuWlL87ql1z6GC5ZOHs768G6q8lqp5PWln9KAly5voSQ7XzNSCA80j_fsk9UuIPRSbJRNGON0XBKZdbb9J9DiRPjdwelUrxX8LkmrF53rsr_sVDheLIAB_-2EHdcU-3NtKzt9S_iZ-GFqo2MLPyp0CJZR92uIcuOLDNTM087hDOHJJBbnWksilN81yoydaEo");'>
-              </div>
-            </div>
-            <div class="mt-4">
-              <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">Artigos Pneumáticos Diversos</h3>
-              <p class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">Tudo o que você precisa para seu sistema
-                pneumático.</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </main>
-    <footer class="border-t border-zinc-200/50 bg-background-light dark:border-zinc-800/50 dark:bg-background-dark">
-      <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <p class="text-center text-sm text-zinc-500 dark:text-zinc-400">© 2024 Pintare Equipamentos Para Pintura LTDA.
-          Todos os direitos reservados.</p>
-      </div>
-    </footer>
-  </div>
+        </footer>
+    </div>
 
 </body>
 
