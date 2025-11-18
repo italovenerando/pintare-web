@@ -1,78 +1,64 @@
 <!-- ========== INÍCIO MODAL DE AUTH ========== -->
 <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm hidden">
-    <!-- Overlay (fundo) -->
     <div id="modal-overlay" class="absolute inset-0"></div>
 
-    <!-- Conteúdo do Modal -->
     <div class="relative w-full max-w-2xl p-6 mx-4 bg-background-light dark:bg-card-dark rounded-xl shadow-lg border border-border-light dark:border-border-dark">
-        <!-- Botão de Fechar -->
         <button id="modal-close-btn" class="absolute top-4 right-4 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary">
             <span class="material-symbols-outlined">close</span>
         </button>
 
-        <!-- Abas (Login / Cadastro) -->
         <div class="mb-6 border-b border-border-light dark:border-border-dark">
             <nav class="flex space-x-4" aria-label="Tabs">
-                <button id="tab-login" class="tab-btn px-4 py-3 font-semibold text-lg border-b-2 border-primary text-primary">
-                    Login
-                </button>
-                <button id="tab-register" class="tab-btn px-4 py-3 font-semibold text-lg border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
-                    Cadastre-se
-                </button>
+                <button id="tab-login" class="tab-btn px-4 py-3 font-semibold text-lg border-b-2 border-primary text-primary">Login</button>
+                <button id="tab-register" class="tab-btn px-4 py-3 font-semibold text-lg border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">Cadastre-se</button>
             </nav>
         </div>
 
-        <!-- Mensagem de Erro/Sucesso -->
         <div id="auth-message" class="hidden p-3 mb-4 text-sm rounded-lg"></div>
 
-        <!-- ====== Formulário de LOGIN ====== -->
+        <!-- LOGIN -->
         <div id="form-login-container">
             <form id="form-login" class="space-y-4">
                 <div>
-                    <label for="login-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-                    <input type="email" id="login-email" name="email" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                    <input type="email" name="email" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
                 </div>
                 <div>
-                    <label for="login-senha" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha</label>
-                    <input type="password" id="login-senha" name="senha" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
-                    <a href="#" class="text-sm text-primary hover:underline mt-1 block">Esqueceu sua senha?</a>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha</label>
+                    <input type="password" name="senha" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
                 </div>
-                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90">
-                    Entrar
-                </button>
+                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90">Entrar</button>
             </form>
         </div>
 
-        <!-- ====== Formulário de CADASTRO ====== -->
+        <!-- CADASTRO -->
         <div id="form-register-container" class="hidden">
             <form id="form-register" class="space-y-4">
-
-                <!-- Seleção de Tipo de Conta -->
                 <div>
-                    <label for="tipo-conta" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo de Conta</label>
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tipo de Conta</label>
                     <select id="tipo-conta" name="tipo" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark focus:ring-primary focus:border-primary">
                         <option value="PF">Pessoa Física</option>
                         <option value="PJ">Pessoa Jurídica</option>
                     </select>
                 </div>
 
-                <!-- Campos Comuns (Email, Senha, Cel/Tel) -->
+                <!-- Campos Comuns -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="reg-email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email *</label>
-                        <input type="email" id="reg-email" name="email" required class="form-input w-full rounded ...">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email *</label>
+                        <input type="email" name="email" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                     </div>
                     <div>
-                        <label for="reg-senha" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha *</label>
-                        <input type="password" id="reg-senha" name="senha" required class="form-input w-full rounded ...">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Senha *</label>
+                        <input type="password" name="senha" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                     </div>
                     <div>
-                        <label for="reg-celular" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Celular *</label>
-                        <input type="tel" id="reg-celular" name="celular" required class="form-input w-full rounded ...">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Celular *</label>
+                        <input type="tel" name="celular" required class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                     </div>
                     <div>
-                        <label for="reg-telefone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Telefone</label>
-                        <input type="tel" id="reg-telefone" name="telefone" class="form-input w-full rounded ...">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Telefone</label>
+                        <input type="tel" name="telefone" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                     </div>
                 </div>
 
@@ -81,20 +67,20 @@
                     <div class="text-sm font-semibold text-gray-600 dark:text-gray-300 pt-2 border-t dark:border-gray-700">Dados Pessoais</div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="reg-nome_completo-pf" class="block text-sm font-medium ...">Nome Completo *</label>
-                            <input type="text" id="reg-nome_completo-pf" name="nome_completo" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome Completo *</label>
+                            <input type="text" name="nome_completo" id="reg-nome_completo-pf" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                         <div>
-                            <label for="reg-cpf-pf" class="block text-sm font-medium ...">CPF *</label>
-                            <input type="text" id="reg-cpf-pf" name="cpf" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CPF *</label>
+                            <input type="text" name="cpf" id="reg-cpf-pf" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                         <div>
-                            <label for="reg-rg" class="block text-sm font-medium ...">RG ou Insc. Estad.</label>
-                            <input type="text" id="reg-rg" name="rg" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">RG</label>
+                            <input type="text" name="rg" id="reg-rg" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                         <div>
-                            <label for="reg-nascimento-pf" class="block text-sm font-medium ...">Nascimento</label>
-                            <input type="date" id="reg-nascimento-pf" name="nascimento" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nascimento</label>
+                            <input type="date" name="nascimento" id="reg-nascimento-pf" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                     </div>
                 </div>
@@ -104,44 +90,41 @@
                     <div class="text-sm font-semibold text-gray-600 dark:text-gray-300 pt-2 border-t dark:border-gray-700">Dados da Empresa</div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="reg-razao_social" class="block text-sm font-medium ...">Razão Social *</label>
-                            <input type="text" id="reg-razao_social" name="razao_social" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Razão Social *</label>
+                            <input type="text" name="razao_social" id="reg-razao_social" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                         <div>
-                            <label for="reg-nome_fantasia" class="block text-sm font-medium ...">Nome Fantasia</label>
-                            <input type="text" id="reg-nome_fantasia" name="nome_fantasia" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome Fantasia</label>
+                            <input type="text" name="nome_fantasia" id="reg-nome_fantasia" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                         <div>
-                            <label for="reg-cnpj" class="block text-sm font-medium ...">CNPJ *</label>
-                            <input type="text" id="reg-cnpj" name="cnpj" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CNPJ *</label>
+                            <input type="text" name="cnpj" id="reg-cnpj" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                         <div>
-                            <label for="reg-inscricao_estadual" class="block text-sm font-medium ...">Insc. Estadual</label>
-                            <input type="text" id="reg-inscricao_estadual" name="inscricao_estadual" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Insc. Estadual</label>
+                            <input type="text" name="inscricao_estadual" id="reg-inscricao_estadual" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                     </div>
                     <div class="text-sm font-semibold text-gray-600 dark:text-gray-300 pt-2 border-t dark:border-gray-700">Dados do Responsável</div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <label for="reg-nome_completo-pj" class="block text-sm font-medium ...">Nome do Responsável *</label>
-                            <input type="text" id="reg-nome_completo-pj" name="nome_completo" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nome do Responsável *</label>
+                            <input type="text" name="nome_completo" id="reg-nome_completo-pj" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                         <div>
-                            <label for="reg-cpf-pj" class="block text-sm font-medium ...">CPF do Responsável *</label>
-                            <input type="text" id="reg-cpf-pj" name="cpf" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CPF do Responsável *</label>
+                            <input type="text" name="cpf" id="reg-cpf-pj" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                         <div>
-                            <label for="reg-nascimento-pj" class="block text-sm font-medium ...">Nascimento do Responsável</label>
-                            <input type="date" id="reg-nascimento-pj" name="nascimento" class="form-input w-full rounded ...">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nascimento do Responsável</label>
+                            <input type="date" name="nascimento" id="reg-nascimento-pj" class="form-input w-full rounded border-gray-300 dark:border-gray-600 bg-background-light dark:bg-background-dark">
                         </div>
                     </div>
                 </div>
 
-                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90">
-                    Criar Conta
-                </button>
+                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90">Criar Conta</button>
             </form>
         </div>
     </div>
 </div>
-<!-- ========== FIM MODAL DE AUTH ========== -->

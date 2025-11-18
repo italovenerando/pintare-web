@@ -110,22 +110,34 @@ function toggleRegistrationFields() {
         inputsPf.forEach(input => input.disabled = false);
         inputsPj.forEach(input => input.disabled = true);
 
-        // Corrige campos duplicados
+        // Garante que o RG esteja ativo
+        const inputRg = document.getElementById('reg-rg');
+        if (inputRg) inputRg.disabled = false;
+
+        // Desabilita campos de PJ com mesmo 'name' para não dar conflito no FormData
         document.getElementById('reg-nome_completo-pj').disabled = true;
         document.getElementById('reg-cpf-pj').disabled = true;
         document.getElementById('reg-nascimento-pj').disabled = true;
+
         document.getElementById('reg-nome_completo-pf').disabled = false;
         document.getElementById('reg-cpf-pf').disabled = false;
         document.getElementById('reg-nascimento-pf').disabled = false;
+
     } else { // 'PJ'
         camposPf.classList.add('hidden');
         camposPj.classList.remove('hidden');
         inputsPf.forEach(input => input.disabled = true);
         inputsPj.forEach(input => input.disabled = false);
-        // Corrige campos duplicados
+
+        // Garante que o RG esteja desativado (PJ não tem RG)
+        const inputRg = document.getElementById('reg-rg');
+        if (inputRg) inputRg.disabled = true;
+
+        // Inverte a lógica dos campos duplicados
         document.getElementById('reg-nome_completo-pj').disabled = false;
         document.getElementById('reg-cpf-pj').disabled = false;
         document.getElementById('reg-nascimento-pj').disabled = false;
+
         document.getElementById('reg-nome_completo-pf').disabled = true;
         document.getElementById('reg-cpf-pf').disabled = true;
         document.getElementById('reg-nascimento-pf').disabled = true;

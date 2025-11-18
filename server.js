@@ -203,52 +203,61 @@ app.get('/api/produtos/:id', (req, res) => {
 
 // 1. REGISTRO DE NOVO USUÁRIO (PF ou PJ)
 app.post('/api/auth/registrar', async(req, res) => {
-    const { tipo, email, senha, ...dados } = req.body; // Pega 'tipo', 'email', 'senha' e o resto dos dados
+    // Extrai os campos do corpo da requisição
+    const { tipo, email, senha, ...dados } = req.body;
 
+    // Validação básica
     if (!email || !senha || !tipo) {
         return res.status(400).json({ message: 'Email, senha e tipo são obrigatórios.' });
     }
 
     try {
-        // Criptografa a senha (NUNCA salve senhas em texto puro)
-        const senhaHash = await bcrypt.hash(senha, 10); // 10 é o "custo" do hash
+        // Criptografa a senha
+        const senhaHash = await bcrypt.hash(senha, 10);
 
-        // Monta a query de inserção com base no tipo
-        // Isso é complexo, mas cobre os campos que você pediu
-        let campos, valores, params;
+        // Prepara os parâmetros, garantindo que undefined vire null
+        // Isso evita erros de SQL se um campo opcional não for enviado
+        const paramsBase = {
+            nome_completo: dados.nome_completo || null,
+            cpf: dados.cpf || null,
+            rg: dados.rg || null, // <-- RG AQUI
+            razao_social: dados.razao_social || null,
+            nome_fantasia: dados.nome_fantasia || null,
+            cnpj: dados.cnpj || null,
+            inscricao_estadual: dados.inscricao_estadual || null,
+            celular: dados.celular || null,
+            telefone: dados.telefone || null,
+            data_nascimento: dados.nascimento || null
+        };
+
+        let sql = '';
+        let params = [];
 
         if (tipo === 'PF') {
-            campos = '(tipo, email, senha_hash, nome_completo, cpf, celular, telefone, data_nascimento)';
-            valores = '(?, ?, ?, ?, ?, ?, ?, ?)';
+            sql = `INSERT INTO usuarios (tipo, email, senha_hash, nome_completo, cpf, rg, celular, telefone, data_nascimento) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
             params = [
                 tipo, email, senhaHash,
-                dados.nome_completo, dados.cpf, dados.rg,
-                dados.celular, dados.telefone, dados.nascimento
+                paramsBase.nome_completo, paramsBase.cpf, paramsBase.rg,
+                paramsBase.celular, paramsBase.telefone, paramsBase.data_nascimento
             ];
         } else if (tipo === 'PJ') {
-            campos = '(tipo, email, senha_hash, nome_completo, cpf, razao_social, nome_fantasia, cnpj, inscricao_estadual, celular, telefone, data_nascimento)';
-            valores = '(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            sql = `INSERT INTO usuarios (tipo, email, senha_hash, nome_completo, cpf, razao_social, nome_fantasia, cnpj, inscricao_estadual, celular, telefone, data_nascimento) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
             params = [
                 tipo, email, senhaHash,
-                dados.nome_completo, // Nome do Responsável
-                dados.cpf, // CPF do Responsável
-                dados.razao_social,
-                dados.nome_fantasia,
-                dados.cnpj,
-                dados.inscricao_estadual,
-                dados.celular,
-                dados.telefone,
-                dados.nascimento // Nascimento do Responsável
+                paramsBase.nome_completo, paramsBase.cpf, // Responsável
+                paramsBase.razao_social, paramsBase.nome_fantasia, paramsBase.cnpj, paramsBase.inscricao_estadual,
+                paramsBase.celular, paramsBase.telefone, paramsBase.data_nascimento
             ];
         } else {
-            return res.status(400).json({ message: 'Tipo de usuário inválido (deve ser PF ou PJ).' });
+            return res.status(400).json({ message: 'Tipo de usuário inválido.' });
         }
-
-        const sql = `INSERT INTO usuarios ${campos} VALUES ${valores}`;
 
         db.run(sql, params, function(err) {
             if (err) {
-                if (err.message.includes('UNIQUE constraint failed: usuarios.email')) {
+                console.error("Erro SQL Registro:", err.message);
+                if (err.message.includes('UNIQUE constraint failed')) {
                     return res.status(409).json({ message: 'Este email já está cadastrado.' });
                 }
                 return res.status(500).json({ message: 'Erro ao registrar usuário.', error: err.message });
@@ -257,7 +266,8 @@ app.post('/api/auth/registrar', async(req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({ message: 'Erro interno do servidor.', error: error.message });
+        console.error("Erro Server Registro:", error);
+        res.status(500).json({ message: 'Erro interno do servidor.' });
     }
 });
 
@@ -308,6 +318,56 @@ app.post('/api/auth/login', (req, res) => {
             token: token,
             user: payload
         });
+    });
+});
+
+// 3. OBTER DADOS (GET /api/auth/me)
+app.get('/api/auth/me', verificarToken, (req, res) => {
+    const userId = req.user.id;
+    // Selecionamos campos específicos para não enviar a senhaHash
+    const sql = 'SELECT id, tipo, email, nome_completo, cpf, rg, razao_social, nome_fantasia, cnpj, inscricao_estadual, celular, telefone, data_nascimento, isAdmin FROM usuarios WHERE id = ?';
+
+    db.get(sql, [userId], (err, row) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erro ao buscar perfil.', error: err.message });
+        }
+        if (!row) {
+            return res.status(404).json({ message: 'Usuário não encontrado.' });
+        }
+        res.json({ user: row });
+    });
+});
+
+// 4. ATUALIZAR DADOS (PUT /api/auth/me)
+app.put('/api/auth/me', verificarToken, (req, res) => {
+    const userId = req.user.id;
+    const dados = req.body;
+
+    // ATENÇÃO: Esta query NÂO inclui 'senha_hash' nem 'email'.
+    // Isso garante que a senha e o login nunca quebram aqui.
+    const sql = `UPDATE usuarios SET 
+                 nome_completo = ?, 
+                 celular = ?, 
+                 telefone = ?,
+                 nome_fantasia = ? 
+                 WHERE id = ?`;
+
+    // Para PJ, o 'nome_completo' é usado para o Nome do Responsável no nosso design.
+    // Para PF, é o nome da pessoa.
+    const params = [
+        dados.nome_completo,
+        dados.celular,
+        dados.telefone,
+        dados.nome_fantasia, // Será salvo se for PJ, ignorado visualmente se for PF
+        userId
+    ];
+
+    db.run(sql, params, function(err) {
+        if (err) {
+            console.error("Erro Update Perfil:", err.message);
+            return res.status(500).json({ message: 'Erro ao atualizar perfil.', error: err.message });
+        }
+        res.json({ message: 'Perfil atualizado com sucesso!' });
     });
 });
 

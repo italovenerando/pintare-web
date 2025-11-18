@@ -21,6 +21,7 @@ db.serialize(() => {
         senha_hash TEXT NOT NULL,
         nome_completo TEXT, -- Usado para PF e Nome do Responsável PJ
         cpf TEXT,           -- PF e Responsável PJ
+        rg TEXT,
         razao_social TEXT,  -- Apenas PJ
         nome_fantasia TEXT, -- Apenas PJ
         cnpj TEXT,          -- Apenas PJ

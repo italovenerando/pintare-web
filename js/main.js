@@ -61,6 +61,22 @@ async function carregarSecao(tag, elementoId) {
     }
 }
 
+// Função para rolar o carrossel manualmente pelos botões
+function scrollCarousel(containerId, direction) {
+    const container = document.getElementById(containerId);
+    if (container) {
+        // Pega a largura de um card (aproximadamente) ou um valor fixo
+        // Vamos rolar a largura da tela ou 300px
+        const scrollAmount = container.clientWidth / 2; // Rola metade da tela
+
+        if (direction === 'left') {
+            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    }
+}
+
 // Quando a página terminar de carregar, executa as buscas
 document.addEventListener('DOMContentLoaded', () => {
     // Carrega as 3 seções da Home
