@@ -38,10 +38,17 @@ db.serialize(() => {
         nome TEXT NOT NULL,
         descricao_curta TEXT,
         descricao_longa TEXT,
-        imagem_url TEXT,
         categoria TEXT, -- ex: 'pistola', 'tanque', 'acessorio'
         tags TEXT,       -- ex: 'mais_vendido,lancamento'
         destaque BOOLEAN DEFAULT 0
+    )`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS produto_imagens (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        produto_id INTEGER NOT NULL,
+        imagem_url TEXT NOT NULL,
+        ordem INTEGER DEFAULT 0, -- Para sabermos qual é a imagem principal
+        FOREIGN KEY(produto_id) REFERENCES produtos(id) ON DELETE CASCADE
     )`);
 
     // Tabela de Orçamentos (Pedidos)

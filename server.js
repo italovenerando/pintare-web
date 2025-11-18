@@ -21,12 +21,15 @@ app.get('/', (req, res) => {
 
 // 1. Pegar TODOS os produtos (para o catálogo completo)
 app.get('/api/produtos', (req, res) => {
-    // Podemos aceitar filtros via query string, ex: /api/produtos?categoria=pistola
-    let sql = 'SELECT * FROM produtos';
+    let sql = `
+        SELECT p.*, pi.imagem_url AS imagem_url
+        FROM produtos p
+        LEFT JOIN produto_imagens pi ON p.id = pi.produto_id AND pi.ordem = 0
+    `;
     const params = [];
 
     if (req.query.categoria) {
-        sql += ' WHERE categoria = ?';
+        sql += ' WHERE p.categoria = ?';
         params.push(req.query.categoria);
     }
 
@@ -47,8 +50,12 @@ app.get('/api/produtos/home', (req, res) => {
         return res.status(400).json({ error: 'É necessário informar uma tag (ex: ?tag=mais_vendido)' });
     }
 
-    // Usamos LIKE para verificar se a tag está na lista de tags do produto
-    const sql = "SELECT * FROM produtos WHERE tags LIKE ?";
+    const sql = `
+        SELECT p.*, pi.imagem_url AS imagem_url
+        FROM produtos p
+        LEFT JOIN produto_imagens pi ON p.id = pi.produto_id AND pi.ordem = 0
+        WHERE p.tags LIKE ?
+    `;
     const params = [`%${tag}%`];
 
     db.all(sql, params, (err, rows) => {
@@ -249,59 +256,140 @@ app.get('/api/admin/check', verificarToken, (req, res) => {
 
 // 1. CRIAR um novo produto
 app.post('/api/admin/produtos', [verificarToken, verificarAdmin], (req, res) => {
-    const { nome, descricao_curta, descricao_longa, imagem_url, categoria, tags } = req.body;
+    // Agora esperamos um array 'imagens' no body
+    const { nome, descricao_curta, descricao_longa, categoria, tags, destaque, imagens } = req.body;
 
-    const sql = `INSERT INTO produtos (nome, descricao_curta, descricao_longa, imagem_url, categoria, tags, destaque) 
-                 VALUES (?, ?, ?, ?, ?, ?, 0)`; // Novos produtos não são destaque por padrão
+    const sqlProduto = `INSERT INTO produtos (nome, descricao_curta, descricao_longa, categoria, tags, destaque) 
+                        VALUES (?, ?, ?, ?, ?, ?)`;
+    const sqlImagem = `INSERT INTO produto_imagens (produto_id, imagem_url, ordem) VALUES (?, ?, ?)`;
 
-    db.run(sql, [nome, descricao_curta, descricao_longa, imagem_url, categoria, tags], function(err) {
-        if (err) {
-            return res.status(500).json({ message: 'Erro ao criar produto', error: err.message });
-        }
-        res.status(201).json({ message: 'Produto criado com sucesso!', id: this.lastID });
+    // db.serialize garante que os comandos rodem em ordem
+    db.serialize(() => {
+        // Inicia a transação
+        db.run('BEGIN TRANSACTION');
+
+        // 1. Insere o produto
+        db.run(sqlProduto, [nome, descricao_curta, descricao_longa, categoria, tags, !!destaque], function(err) {
+            if (err) {
+                db.run('ROLLBACK');
+                return res.status(500).json({ message: 'Erro ao criar produto', error: err.message });
+            }
+
+            const produtoId = this.lastID; // Pega o ID do produto que acabamos de criar
+
+            // 2. Insere as imagens
+            if (imagens && imagens.length > 0) {
+                const imgStmt = db.prepare(sqlImagem);
+                let ordem = 0;
+                for (const url of imagens) {
+                    if (url) { // Só insere se a URL não estiver vazia
+                        imgStmt.run(produtoId, url, ordem, (imgErr) => {
+                            if (imgErr) {
+                                db.run('ROLLBACK');
+                                return res.status(500).json({ message: 'Erro ao salvar imagem', error: imgErr.message });
+                            }
+                        });
+                        ordem++;
+                    }
+                }
+                imgStmt.finalize();
+            }
+
+            // 3. Finaliza a transação
+            db.run('COMMIT', (commitErr) => {
+                if (commitErr) {
+                    return res.status(500).json({ message: 'Erro ao finalizar transação', error: commitErr.message });
+                }
+                res.status(201).json({ message: 'Produto e imagens criados com sucesso!', id: produtoId });
+            });
+        });
     });
 });
 
 // 2. ATUALIZAR um produto
 app.put('/api/admin/produtos/:id', [verificarToken, verificarAdmin], (req, res) => {
     const { id } = req.params;
-    const { nome, descricao_curta, descricao_longa, imagem_url, categoria, tags, destaque } = req.body;
+    const { nome, descricao_curta, descricao_longa, categoria, tags, destaque, imagens } = req.body;
 
-    const sql = `UPDATE produtos SET 
-                    nome = ?, 
-                    descricao_curta = ?, 
-                    descricao_longa = ?, 
-                    imagem_url = ?, 
-                    categoria = ?, 
-                    tags = ?, 
-                    destaque = ? 
-                 WHERE id = ?`;
+    const sqlUpdateProduto = `UPDATE produtos SET 
+                                nome = ?, descricao_curta = ?, descricao_longa = ?, 
+                                categoria = ?, tags = ?, destaque = ? 
+                              WHERE id = ?`;
+    const sqlDeleteImagens = `DELETE FROM produto_imagens WHERE produto_id = ?`;
+    const sqlInsertImagem = `INSERT INTO produto_imagens (produto_id, imagem_url, ordem) VALUES (?, ?, ?)`;
 
-    db.run(sql, [nome, descricao_curta, descricao_longa, imagem_url, categoria, tags, !!destaque, id], function(err) {
-        if (err) {
-            return res.status(500).json({ message: 'Erro ao atualizar produto', error: err.message });
-        }
-        if (this.changes === 0) {
-            return res.status(404).json({ message: 'Produto não encontrado para atualização.' });
-        }
-        res.json({ message: 'Produto atualizado com sucesso!' });
+    db.serialize(() => {
+        db.run('BEGIN TRANSACTION');
+
+        // 1. Atualiza os dados do produto
+        db.run(sqlUpdateProduto, [nome, descricao_curta, descricao_longa, categoria, tags, !!destaque, id], function(err) {
+            if (err) {
+                db.run('ROLLBACK');
+                return res.status(500).json({ message: 'Erro ao atualizar produto', error: err.message });
+            }
+
+            // 2. Deleta as imagens antigas
+            db.run(sqlDeleteImagens, [id], (deleteErr) => {
+                if (deleteErr) {
+                    db.run('ROLLBACK');
+                    return res.status(500).json({ message: 'Erro ao limpar imagens antigas', error: deleteErr.message });
+                }
+
+                // 3. Insere as novas imagens
+                if (imagens && imagens.length > 0) {
+                    const imgStmt = db.prepare(sqlInsertImagem);
+                    let ordem = 0;
+                    for (const url of imagens) {
+                        if (url) { // Só insere se a URL não estiver vazia
+                            imgStmt.run(id, url, ordem, (imgErr) => {
+                                if (imgErr) {
+                                    db.run('ROLLBACK');
+                                    return res.status(500).json({ message: 'Erro ao salvar nova imagem', error: imgErr.message });
+                                }
+                            });
+                            ordem++;
+                        }
+                    }
+                    imgStmt.finalize();
+                }
+
+                // 4. Finaliza a transação
+                db.run('COMMIT', (commitErr) => {
+                    if (commitErr) {
+                        return res.status(500).json({ message: 'Erro ao finalizar transação', error: commitErr.message });
+                    }
+                    res.json({ message: 'Produto atualizado com sucesso!' });
+                });
+            });
+        });
     });
 });
 
 // 3. DELETAR um produto
-app.delete('/api/admin/produtos/:id', [verificarToken, verificarAdmin], (req, res) => {
-    const { id } = req.params;
+app.get('/api/produtos/:id', (req, res) => {
+    const sqlProduto = 'SELECT * FROM produtos WHERE id = ?';
+    const sqlImagens = 'SELECT * FROM produto_imagens WHERE produto_id = ? ORDER BY ordem ASC';
+    const params = [req.params.id];
 
-    const sql = 'DELETE FROM produtos WHERE id = ?';
-
-    db.run(sql, [id], function(err) {
+    // Precisamos de duas buscas
+    db.get(sqlProduto, params, (err, produto) => {
         if (err) {
-            return res.status(500).json({ message: 'Erro ao deletar produto', error: err.message });
+            return res.status(500).json({ error: err.message });
         }
-        if (this.changes === 0) {
-            return res.status(404).json({ message: 'Produto não encontrado para deletar.' });
+        if (!produto) {
+            return res.status(404).json({ message: 'Produto não encontrado' });
         }
-        res.json({ message: 'Produto deletado com sucesso!' });
+
+        // Agora busca as imagens
+        db.all(sqlImagens, params, (imgErr, imagens) => {
+            if (imgErr) {
+                return res.status(500).json({ error: imgErr.message });
+            }
+
+            // Combina os resultados
+            produto.imagens = imagens; // Adiciona o array de imagens ao objeto do produto
+            res.json({ produto: produto });
+        });
     });
 });
 

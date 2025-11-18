@@ -65,21 +65,39 @@ async function carregarProdutosAdmin() {
 
 // --- FUNÇÃO 2: Lidar com o Formulário (Create / Update) ---
 async function handleFormSubmit(e) {
-    e.preventDefault(); // Impede o recarregamento da página
+    e.preventDefault();
 
     const formData = new FormData(formProduto);
-    const produto = Object.fromEntries(formData.entries());
+    const produtoParcial = Object.fromEntries(formData.entries());
 
-    const produtoId = inputProdutoId.value; // Pega o ID do campo oculto
+    // 1. Pega os dados básicos (exceto imagens)
+    const produto = {
+        nome: produtoParcial.nome,
+        descricao_curta: produtoParcial.descricao_curta,
+        descricao_longa: produtoParcial.descricao_longa,
+        categoria: produtoParcial.categoria,
+        tags: produtoParcial.tags,
+        destaque: !!produtoParcial.destaque // (Se você adicionar um checkbox de destaque)
+    };
 
+    // 2. Coleta as imagens em um array
+    produto.imagens = [
+            produtoParcial['imagem-1'],
+            produtoParcial['imagem-2'],
+            produtoParcial['imagem-3'],
+            produtoParcial['imagem-4']
+        ]
+        .filter(url => url)
+        .map(url => normalizarCaminhoImagem(url)); // Filtra para remover campos vazios
+
+
+    const produtoId = inputProdutoId.value;
     let metodo, url;
 
     if (produtoId) {
-        // Se tem ID, é ATUALIZAÇÃO (PUT)
         metodo = 'PUT';
         url = `${API_URL}/admin/produtos/${produtoId}`;
     } else {
-        // Se não tem ID, é CRIAÇÃO (POST)
         metodo = 'POST';
         url = `${API_URL}/admin/produtos`;
     }
@@ -89,9 +107,9 @@ async function handleFormSubmit(e) {
             method: metodo,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Envia o "crachá" de Admin
+                'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(produto)
+            body: JSON.stringify(produto) // Envia o objeto completo
         });
 
         const result = await response.json();
@@ -99,7 +117,7 @@ async function handleFormSubmit(e) {
         if (response.ok) {
             alert(result.message);
             limparFormulario();
-            carregarProdutosAdmin(); // Recarrega a tabela
+            carregarProdutosAdmin();
         } else {
             alert(`Erro: ${result.message}`);
         }
@@ -112,7 +130,7 @@ async function handleFormSubmit(e) {
 async function editarProduto(id) {
     console.log(`Editando produto ${id}`);
 
-    // Busca os dados completos do produto
+    // A API agora retorna o produto COM o array de imagens
     try {
         const response = await fetch(`${API_URL}/produtos/${id}`);
         const dados = await response.json();
@@ -124,13 +142,27 @@ async function editarProduto(id) {
             formTitulo.innerText = 'Editando Produto';
             inputProdutoId.value = produto.id;
             document.getElementById('produto-nome').value = produto.nome;
+            // document.getElementById('produto-preco').value = produto.preco; // Já removemos
             document.getElementById('produto-descricao-curta').value = produto.descricao_curta || '';
             document.getElementById('produto-descricao-longa').value = produto.descricao_longa || '';
-            document.getElementById('produto-imagem-url').value = produto.imagem_url || '';
             document.getElementById('produto-categoria').value = produto.categoria || '';
             document.getElementById('produto-tags').value = produto.tags || '';
 
-            // Rola a página para o topo
+            // Limpa os campos de imagem antes de preencher
+            document.getElementById('produto-imagem-1').value = '';
+            document.getElementById('produto-imagem-2').value = '';
+            document.getElementById('produto-imagem-3').value = '';
+            document.getElementById('produto-imagem-4').value = '';
+
+            // Preenche os campos de imagem (até 4)
+            if (produto.imagens && produto.imagens.length > 0) {
+                produto.imagens.forEach((imagem, index) => {
+                    if (index < 4) { // Garante que não passemos de 4 campos
+                        document.getElementById(`produto-imagem-${index + 1}`).value = imagem.imagem_url;
+                    }
+                });
+            }
+
             window.scrollTo(0, 0);
         } else {
             alert('Produto não encontrado.');
@@ -171,6 +203,16 @@ async function deletarProduto(id) {
 // --- FUNÇÃO UTILITÁRIA: Limpar o formulário ---
 function limparFormulario() {
     formProduto.reset();
-    inputProdutoId.value = ''; // Limpa o ID oculto
+    inputProdutoId.value = '';
     formTitulo.innerText = 'Adicionar Novo Produto';
+    // Garante que os campos de imagem sejam limpos (o reset() às vezes falha)
+    document.getElementById('produto-imagem-1').value = '';
+    document.getElementById('produto-imagem-2').value = '';
+    document.getElementById('produto-imagem-3').value = '';
+    document.getElementById('produto-imagem-4').value = '';
+}
+
+function normalizarCaminhoImagem(caminho) {
+    if (!caminho) return "";
+    return caminho.replace(/\\/g, "/");
 }
