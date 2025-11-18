@@ -1,4 +1,5 @@
 require('dotenv').config();
+const { enviarEmailOrcamento } = require('./emailService');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const express = require('express');
@@ -20,26 +21,127 @@ app.get('/', (req, res) => {
 // --- ROTAS DE PRODUTOS (Públicas) ---
 
 // 1. Pegar TODOS os produtos (para o catálogo completo)
-app.get('/api/produtos', (req, res) => {
-    let sql = `
-        SELECT p.*, pi.imagem_url AS imagem_url
-        FROM produtos p
-        LEFT JOIN produto_imagens pi ON p.id = pi.produto_id AND pi.ordem = 0
-    `;
-    const params = [];
+app.get('/api/produtos', async(req, res) => {
+    try {
+        // --- Paginação ---
+        const pagina = parseInt(req.query.pagina) || 1;
+        const limite = parseInt(req.query.limite) || 9;
+        const offset = (pagina - 1) * limite;
 
-    if (req.query.categoria) {
-        sql += ' WHERE p.categoria = ?';
-        params.push(req.query.categoria);
-    }
+        // --- Filtros ---
+        // Esperamos filtros como: ?categorias=Filtro%20A,Filtro%20B&tags=Marca%20A
+        const categorias = req.query.categorias ? req.query.categorias.split(',') : [];
+        const tags = req.query.tags ? req.query.tags.split(',') : [];
+        const searchTerm = req.query.search;
 
-    db.all(sql, params, (err, rows) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-            return;
+        let whereClauses = []; // Array para guardar as cláusulas (ex: "p.categoria IN (?)")
+        let params = []; // Array para guardar os valores (ex: ["Pistola de Gravidade"])
+
+        // Adiciona filtro de Categoria (ex: "Pistola de Gravidade", "Filtro de Linha")
+        if (categorias.length > 0) {
+            // Cria placeholders (?) para cada categoria
+            const catPlaceholders = categorias.map(() => '?').join(',');
+            whereClauses.push(`p.categoria IN (${catPlaceholders})`);
+            params.push(...categorias);
         }
-        res.json({ produtos: rows });
-    });
+
+        // Adiciona filtro de Tags (ex: "Marca A", "hvlp")
+        if (tags.length > 0) {
+            // Cria "p.tags LIKE ?" para cada tag
+            const tagClauses = tags.map(() => 'p.tags LIKE ?');
+            // Junta com AND (ex: "... LIKE ? AND ... LIKE ?")
+            whereClauses.push(`( ${tagClauses.join(' AND ')} )`);
+            // Adiciona os valores com % (ex: ["%Marca A%", "%hvlp%"])
+            params.push(...tags.map(tag => `%${tag}%`));
+        }
+
+        if (searchTerm) {
+            // Procura no nome OU na descrição curta
+            whereClauses.push(`(p.nome LIKE ? OR p.descricao_curta LIKE ?)`);
+            params.push(`%${searchTerm}%`);
+            params.push(`%${searchTerm}%`);
+        }
+
+        // Constrói a string WHERE final
+        const whereClause = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : '';
+
+        // 1. NÚMERO TOTAL (com os mesmos filtros)
+        const totalSql = `SELECT COUNT(*) as total FROM produtos p ${whereClause}`;
+        // Passamos os parâmetros do filtro (ex: ["Pistola de Gravidade"])
+        const totalRow = await dbGetAsync(totalSql, params);
+        const totalProdutos = totalRow.total;
+        const totalPaginas = Math.ceil(totalProdutos / limite);
+
+        // 2. BUSCA DOS PRODUTOS (com os mesmos filtros + paginação)
+        const sql = `
+            SELECT p.*, pi.imagem_url AS imagem_url
+            FROM produtos p
+            LEFT JOIN produto_imagens pi ON p.id = pi.produto_id AND pi.ordem = 0
+            ${whereClause}
+            ORDER BY p.id DESC
+            LIMIT ?
+            OFFSET ?
+        `;
+
+        // Adiciona os parâmetros de paginação (limite, offset) NO FINAL
+        const queryParams = [...params, limite, offset];
+        const rows = await dbAllAsync(sql, queryParams);
+
+        // 3. Retorna tudo
+        res.json({
+            produtos: rows,
+            paginaAtual: pagina,
+            totalPaginas: totalPaginas,
+            totalProdutos: totalProdutos
+        });
+
+    } catch (err) {
+        console.error("Erro na busca de produtos:", err.message);
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// (NOVA ROTA) - Pegar todas as opções de filtros
+app.get('/api/filtros', async(req, res) => {
+    try {
+        // 1. Pega todas as CATEGORIAS únicas
+        const sqlCategorias = `
+            SELECT DISTINCT categoria 
+            FROM produtos 
+            WHERE categoria IS NOT NULL AND categoria != '' 
+            ORDER BY categoria ASC
+        `;
+        const categoriasRows = await dbAllAsync(sqlCategorias, []);
+        const categorias = categoriasRows.map(row => row.categoria);
+
+        // 2. Pega todas as TAGS (este é mais complexo)
+        const sqlTags = `SELECT tags FROM produtos WHERE tags IS NOT NULL AND tags != ''`;
+        const tagsRows = await dbAllAsync(sqlTags, []);
+
+        const tagSet = new Set(); // Usamos um Set para garantir que sejam únicas
+
+        tagsRows.forEach(row => {
+            const tags = row.tags.split(','); // "tag1,tag2,tag3"
+            tags.forEach(tag => {
+                const tagLimpa = tag.trim(); // Limpa espaços
+                if (tagLimpa) {
+                    tagSet.add(tagLimpa);
+                }
+            });
+        });
+
+        const tags = Array.from(tagSet).sort(); // Converte de volta para um array ordenado
+
+        // 3. Retorna o JSON
+        res.json({
+            categorias: categorias,
+            tags: tags
+        });
+
+    } catch (err) {
+        console.error("Erro ao buscar filtros:", err.message);
+        res.status(500).json({ error: err.message });
+    }
 });
 
 // 2. Pegar produtos para a HOME (filtrados por tags)
@@ -69,18 +171,33 @@ app.get('/api/produtos/home', (req, res) => {
 
 // 3. Pegar UM produto específico (para a página de detalhes)
 app.get('/api/produtos/:id', (req, res) => {
-    const sql = 'SELECT * FROM produtos WHERE id = ?';
+    const sqlProduto = 'SELECT * FROM produtos WHERE id = ?';
+    const sqlImagens = 'SELECT * FROM produto_imagens WHERE produto_id = ? ORDER BY ordem ASC';
     const params = [req.params.id];
 
-    db.get(sql, params, (err, row) => {
+    // Precisamos de duas buscas
+    db.get(sqlProduto, params, (err, produto) => {
         if (err) {
-            res.status(500).json({ error: err.message });
-            return;
+            return res.status(500).json({ error: err.message });
         }
-        if (!row) {
+        if (!produto) {
             return res.status(404).json({ message: 'Produto não encontrado' });
         }
-        res.json({ produto: row });
+
+        // Agora busca as imagens
+        db.all(sqlImagens, params, (imgErr, imagens) => {
+            if (imgErr) {
+                // Se falhar a busca de imagens, ainda retorna o produto
+                console.error("Erro ao buscar imagens:", imgErr);
+                produto.imagens = []; // Envia array vazio
+                res.json({ produto: produto });
+                return;
+            }
+
+            // Combina os resultados
+            produto.imagens = imagens; // Adiciona o array de imagens ao objeto do produto
+            res.json({ produto: produto });
+        });
     });
 });
 
@@ -392,6 +509,100 @@ app.get('/api/produtos/:id', (req, res) => {
         });
     });
 });
+
+// --- ROTA DE ORÇAMENTO (Protegida) ---
+
+// Recebe o carrinho [ {id: 1, quantity: 2}, ... ]
+app.post('/api/orcamentos', [verificarToken], (req, res) => {
+    const usuarioId = req.user.id; // Pegamos do token
+    const itensDoCarrinho = req.body.itens; // Esperamos um array
+
+    if (!itensDoCarrinho || itensDoCarrinho.length === 0) {
+        return res.status(400).json({ message: 'O carrinho está vazio.' });
+    }
+
+    const sqlCriarOrcamento = `INSERT INTO orcamentos (usuario_id, status) VALUES (?, 'Pendente')`;
+    const sqlAdicionarItem = `INSERT INTO itens_orcamento (orcamento_id, produto_id, quantidade) VALUES (?, ?, ?)`;
+
+    db.serialize(() => {
+        db.run('BEGIN TRANSACTION');
+
+        // 1. Cria o orçamento "pai"
+        db.run(sqlCriarOrcamento, [usuarioId], function(err) {
+            if (err) {
+                db.run('ROLLBACK');
+                return res.status(500).json({ message: 'Erro ao criar orçamento.', error: err.message });
+            }
+
+            const orcamentoId = this.lastID;
+            const stmt = db.prepare(sqlAdicionarItem);
+
+            // 2. Adiciona os itens
+            for (const item of itensDoCarrinho) {
+                stmt.run(orcamentoId, item.id, item.quantity);
+            }
+            stmt.finalize();
+
+            // 3. Finaliza a transação
+            db.run('COMMIT', async(commitErr) => {
+                if (commitErr) {
+                    return res.status(500).json({ message: 'Erro ao finalizar transação.', error: commitErr.message });
+                }
+
+                // 4. Se tudo deu certo, buscamos os dados para enviar o e-mail
+                // (Esta parte é complexa, mas necessária para o PDF)
+                try {
+                    const orcamentoSalvo = await dbGetAsync('SELECT * FROM orcamentos WHERE id = ?', [orcamentoId]);
+                    const usuario = await dbGetAsync('SELECT * FROM usuarios WHERE id = ?', [usuarioId]);
+
+                    // Precisamos dos nomes dos produtos
+                    const sqlItens = `SELECT i.quantidade, p.nome as produto_nome 
+                                      FROM itens_orcamento i 
+                                      JOIN produtos p ON i.produto_id = p.id 
+                                      WHERE i.orcamento_id = ?`;
+
+                    const itensSalvos = await dbAllAsync(sqlItens, [orcamentoId]);
+
+                    // 5. Envia o e-mail (sem travar a resposta do usuário)
+                    enviarEmailOrcamento(orcamentoSalvo, itensSalvos, usuario);
+
+                    res.status(201).json({
+                        message: 'Orçamento solicitado com sucesso!',
+                        orcamentoId: orcamentoId
+                    });
+
+                } catch (asyncErr) {
+                    // Se o envio do e-mail falhar, o orçamento ainda foi salvo.
+                    console.error('Erro na etapa assíncrona (e-mail):', asyncErr);
+                    res.status(201).json({
+                        message: 'Orçamento salvo, mas houve falha ao enviar o e-mail.',
+                        orcamentoId: orcamentoId
+                    });
+                }
+            });
+        });
+    });
+});
+
+// Funções utilitárias (ADICIONE NO FINAL DO SEU server.js)
+// Precisamos de versões "Promise" do db.get e db.all
+function dbGetAsync(sql, params) {
+    return new Promise((resolve, reject) => {
+        db.get(sql, params, (err, row) => {
+            if (err) reject(err);
+            resolve(row);
+        });
+    });
+}
+
+function dbAllAsync(sql, params) {
+    return new Promise((resolve, reject) => {
+        db.all(sql, params, (err, rows) => {
+            if (err) reject(err);
+            resolve(rows);
+        });
+    });
+}
 
 // Iniciar o servidor
 app.listen(PORT, () => {
