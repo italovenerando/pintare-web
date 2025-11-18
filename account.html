@@ -7,8 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Minha Conta - Pintare</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&amp;display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
@@ -46,8 +45,7 @@
 <body class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark">
     <div class="relative flex h-auto min-h-screen w-full flex-col">
         <!-- TopNavBar -->
-        <header
-            class="w-full border-b border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark sticky top-0 z-10">
+        <header class="w-full border-b border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark sticky top-0 z-10">
             <div class="container mx-auto flex items-center justify-between whitespace-nowrap px-4 py-3">
                 <div class="flex items-center gap-4 text-text-light dark:text-text-dark">
                     <div class="size-6 text-primary">
@@ -64,16 +62,14 @@
                 </div>
                 <div class="flex flex-1 justify-end gap-8">
                     <div class="hidden items-center gap-9 md:flex">
-                        <a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary"
-                            href="#">Produtos</a>
-                        <a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary"
-                            href="#">Sobre</a>
-                        <a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary"
-                            href="#">Contato</a>
+                        <a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Produtos</a>
+                        <a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Sobre</a>
+                        <a class="text-sm font-medium leading-normal hover:text-primary dark:hover:text-primary" href="#">Contato</a>
                     </div>
-                    <button
-                        class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-subtle-light dark:bg-subtle-dark text-text-light dark:text-text-dark gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-primary/20 dark:hover:bg-primary/20">
+                    <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-subtle-light dark:bg-subtle-dark text-text-light dark:text-text-dark gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5 hover:bg-primary/20 dark:hover:bg-primary/20">
                         <span class="material-symbols-outlined text-xl">shopping_cart</span>
+                            <span id="cart-count" class="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs font-bold text-white hidden">2</span>
+
                     </button>
                 </div>
             </div>
@@ -86,13 +82,10 @@
             <div class="flex flex-col gap-8 md:flex-row">
                 <!-- SideNavBar -->
                 <aside class="w-full md:w-64">
-                    <div
-                        class="flex flex-col justify-between rounded-lg border border-border-light dark:border-border-dark p-4">
+                    <div class="flex flex-col justify-between rounded-lg border border-border-light dark:border-border-dark p-4">
                         <div class="flex flex-col gap-4">
                             <div class="flex items-center gap-3">
-                                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12"
-                                    data-alt="User profile picture"
-                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuASZnI6AAqw-COuWkj2KwcJK2wAqH1_GvC4mIamsWpsRAXYdGsKd48K7NnIpFXNdp9N1uSt6-dVmgwKHpcoZLhulNIqaVhOSsBVJZdtwc9I1WTy6Sb3i-Mws1K5jAlL9IPYBtJdXr1yvaCCKgkNCTkXJHqINc6jX0DvEX8jDbuoIiXa4btrQf8CNd7WJlMpEA8scJ1Hpsg-SoHb7jvxPJzBIsI3-fsdbjjB5DeKWUCryUBvkGYsIjySycrsNHZaQOmgC9KCJzW5xjKu");'>
+                                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuASZnI6AAqw-COuWkj2KwcJK2wAqH1_GvC4mIamsWpsRAXYdGsKd48K7NnIpFXNdp9N1uSt6-dVmgwKHpcoZLhulNIqaVhOSsBVJZdtwc9I1WTy6Sb3i-Mws1K5jAlL9IPYBtJdXr1yvaCCKgkNCTkXJHqINc6jX0DvEX8jDbuoIiXa4btrQf8CNd7WJlMpEA8scJ1Hpsg-SoHb7jvxPJzBIsI3-fsdbjjB5DeKWUCryUBvkGYsIjySycrsNHZaQOmgC9KCJzW5xjKu");'>
                                 </div>
                                 <div class="flex flex-col">
                                     <h1 class="text-base font-medium leading-normal">Carlos Silva</h1>
@@ -101,26 +94,22 @@
                                 </div>
                             </div>
                             <div class="flex flex-col gap-2 pt-4">
-                                <a class="flex items-center gap-3 rounded-lg px-3 py-2 bg-primary/20 dark:bg-primary/20 text-primary"
-                                    href="#">
+                                <a class="flex items-center gap-3 rounded-lg px-3 py-2 bg-primary/20 dark:bg-primary/20 text-primary" href="#">
                                     <span class="material-symbols-outlined text-2xl">person</span>
                                     <p class="text-sm font-medium leading-normal">Perfil</p>
                                 </a>
-                                <a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-subtle-light dark:hover:bg-subtle-dark"
-                                    href="#">
+                                <a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-subtle-light dark:hover:bg-subtle-dark" href="#">
                                     <span class="material-symbols-outlined text-2xl">receipt_long</span>
                                     <p class="text-sm font-medium leading-normal">Histórico de Orçamentos</p>
                                 </a>
-                                <a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-subtle-light dark:hover:bg-subtle-dark"
-                                    href="#">
+                                <a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-subtle-light dark:hover:bg-subtle-dark" href="#">
                                     <span class="material-symbols-outlined text-2xl">home</span>
                                     <p class="text-sm font-medium leading-normal">Endereços</p>
                                 </a>
                             </div>
                         </div>
                         <div class="mt-8 flex flex-col gap-1 border-t border-border-light dark:border-border-dark pt-4">
-                            <a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-subtle-light dark:hover:bg-subtle-dark"
-                                href="#">
+                            <a class="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-subtle-light dark:hover:bg-subtle-dark" href="#">
                                 <span class="material-symbols-outlined text-2xl">logout</span>
                                 <p class="text-sm font-medium leading-normal">Sair</p>
                             </a>
@@ -131,32 +120,27 @@
                 <div class="flex-1">
                     <div class="rounded-lg border border-border-light dark:border-border-dark p-6">
                         <!-- SectionHeader with Edit Button -->
-                        <div
-                            class="flex items-center justify-between border-b border-border-light dark:border-border-dark pb-4 mb-4">
+                        <div class="flex items-center justify-between border-b border-border-light dark:border-border-dark pb-4 mb-4">
                             <h2 class="text-[22px] font-bold leading-tight tracking-[-0.015em]">Informações de Perfil
                             </h2>
-                            <button
-                                class="flex items-center justify-center rounded-lg h-10 bg-primary text-white gap-2 text-sm font-bold px-4 hover:opacity-90">
+                            <button class="flex items-center justify-center rounded-lg h-10 bg-primary text-white gap-2 text-sm font-bold px-4 hover:opacity-90">
                                 <span class="material-symbols-outlined text-lg">edit</span>
                                 <span>Editar</span>
                             </button>
                         </div>
                         <!-- DescriptionList -->
                         <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-[160px_1fr]">
-                            <div
-                                class="col-span-1 sm:col-span-2 grid grid-cols-subgrid border-b border-border-light dark:border-border-dark py-5">
-                                <p class="text-muted-light dark:text-muted-dark text-sm font-normal leading-normal">Nome
-                                    Completo</p>
+                            <div class="col-span-1 sm:col-span-2 grid grid-cols-subgrid border-b border-border-light dark:border-border-dark py-5">
+                                <p class="text-muted-light dark:text-muted-dark text-sm font-normal leading-normal">Nome Completo
+                                </p>
                                 <p class="text-sm font-normal leading-normal">Carlos Silva</p>
                             </div>
-                            <div
-                                class="col-span-1 sm:col-span-2 grid grid-cols-subgrid border-b border-border-light dark:border-border-dark py-5">
+                            <div class="col-span-1 sm:col-span-2 grid grid-cols-subgrid border-b border-border-light dark:border-border-dark py-5">
                                 <p class="text-muted-light dark:text-muted-dark text-sm font-normal leading-normal">
                                     Empresa</p>
                                 <p class="text-sm font-normal leading-normal">Empresa Exemplo LTDA</p>
                             </div>
-                            <div
-                                class="col-span-1 sm:col-span-2 grid grid-cols-subgrid border-b border-border-light dark:border-border-dark py-5">
+                            <div class="col-span-1 sm:col-span-2 grid grid-cols-subgrid border-b border-border-light dark:border-border-dark py-5">
                                 <p class="text-muted-light dark:text-muted-dark text-sm font-normal leading-normal">
                                     E-mail</p>
                                 <p class="text-sm font-normal leading-normal">csilva@empresa.com</p>
